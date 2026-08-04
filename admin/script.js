@@ -147,6 +147,14 @@ function requestGoogleOAuthToken(clientId) {
           $('login-error').textContent = 'Google অ্যাকাউন্ট যাচাই করতে ব্যর্থ হয়েছে।';
         }
       }
+    },
+    error_callback: (err) => {
+      const errEl = $('login-error');
+      if (err?.type === 'popup_failed_to_open') {
+        errEl.textContent = 'পপআপ ব্লক করা হয়েছে। ব্রাউজারে পপআপ অনুমোদন করুন।';
+      } else {
+        errEl.innerHTML = 'Google OAuth Client ID টি আপনার ডোমেইনের (soptosur.vercel.app) জন্য রেজিস্টার্ড হতে হবে।<br><small style="color:var(--text2)">Google Cloud Console থেকে পাওয়া Client ID টি "অ্যাডমিন অ্যাক্সেস" সেকশনে যোগ করুন।</small>';
+      }
     }
   });
   client.requestAccessToken();
