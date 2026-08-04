@@ -131,11 +131,10 @@ async function tryLogin(token, repo) {
 
 $('login-btn').onclick = async () => {
   const token = $('token-input').value.trim();
-  const repo  = $('repo-input').value.trim();
+  const repo  = ($('repo-input')?.value || 'rezwanahmed399/soptosur').trim();
   const errEl = $('login-error');
   errEl.textContent = '';
   if (!token) { errEl.textContent = 'Token দিন'; return; }
-  if (!repo || !repo.includes('/')) { errEl.textContent = 'Repo লিখুন (owner/repo)'; return; }
   setLoginLoading(true);
   try {
     await tryLogin(token, repo);
