@@ -1052,23 +1052,38 @@ p { color: var(--text-body); }
 
 
 /* ============================================
-   RESPONSIVE
+   RESPONSIVE — Mobile Optimized
    ============================================ */
+
+/* --- Tablet (≤900px) --- */
 @media (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr; }
   .initiatives-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--space-md); }
+
+  .hero-logo-img {
+    max-width: 340px;
+  }
+
+  .section { padding: var(--space-xl) 0; }
 }
 
+/* --- Mobile (≤768px) --- */
 @media (max-width: 768px) {
+
+  /* NAV */
+  .nav-container {
+    padding: 0 var(--space-md);
+  }
   .nav-links {
     position: fixed;
     top: var(--nav-h);
     left: 0;
     right: 0;
-    background: rgba(250, 247, 242, 0.97);
-    backdrop-filter: blur(12px);
-    padding: var(--space-md);
+    background: rgba(250, 247, 242, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: var(--space-sm) var(--space-md) var(--space-md);
     flex-direction: column;
     gap: 0;
     border-bottom: 1px solid var(--cream-mid);
@@ -1081,35 +1096,173 @@ p { color: var(--text-body); }
   .nav-links li { width: 100%; }
   .nav-link {
     display: block;
-    padding: 0.9rem 0;
+    padding: 0.95rem 0;
     border-bottom: 1px solid var(--cream-mid);
-    font-size: 1rem;
+    font-size: 1.05rem;
   }
-  .nav-cta { margin-top: 0.5rem; text-align: center; display: block; }
+  .nav-links li:last-child .nav-link { border-bottom: none; }
+  .nav-cta {
+    margin-top: 0.75rem;
+    text-align: center;
+    display: block;
+    border: 1px solid var(--brown) !important;
+    border-radius: var(--radius-full);
+    padding: 0.75rem !important;
+  }
   .nav-toggle { display: flex; }
+  .logo-img { height: 38px; }
 
+  /* HERO */
+  .hero {
+    min-height: 100svh;
+    padding: calc(var(--nav-h) + 2rem) var(--space-md) var(--space-xl);
+  }
+  .hero-content { padding: 0; }
+  .hero-logo-img {
+    height: clamp(60px, 20vw, 110px);
+    max-width: 85vw;
+    margin-bottom: 1rem;
+  }
+  .hero-tagline { font-size: 0.8rem; letter-spacing: 0.18em; }
+  .hero-description {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+  .hero-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+    padding: 0.9rem 1.5rem;
+  }
+  .hero-botanical { display: none; }
+  .hero-scroll-indicator { display: none; }
+
+  /* SECTIONS */
+  .section { padding: 3rem 0; }
+  .container { padding: 0 var(--space-md); }
+  .section-title { font-size: clamp(1.5rem, 5vw, 2rem); }
+
+  /* ABOUT */
+  .about-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .about-stats { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .stat-card { padding: 1.25rem 1rem; }
+  .stat-number { font-size: 2rem; }
+
+  /* NEWS */
   .news-grid { grid-template-columns: 1fr; }
   .news-card-featured { grid-template-columns: 1fr; }
-  .event-item { grid-template-columns: 70px 1fr; }
-  .event-action { grid-column: 2; }
-  .form-row { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
-  .hero-botanical { display: none; }
+  .news-card { padding: 1.25rem; }
+  .news-img-placeholder { height: 180px; }
+
+  /* INITIATIVES */
+  .initiatives-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .initiative-card { padding: 1.5rem; }
+
+  /* EVENTS */
+  .event-item {
+    grid-template-columns: 65px 1fr;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+  .event-action {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+  .event-action .btn { width: 100%; }
+  .event-day { font-size: 1.6rem; }
+
+  /* JOIN FORM */
+  .join { padding: 3rem 0; }
+  .form-row { grid-template-columns: 1fr; gap: 1rem; }
+  .join-title { font-size: clamp(1.5rem, 5vw, 2rem); }
+  input, select {
+    font-size: 16px; /* iOS zoom fix */
+    padding: 0.9rem 1rem;
+  }
+  .btn-full { padding: 1rem; font-size: 1rem; }
+
+  /* FOOTER */
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+  .footer-logo { height: 44px; }
+  .social-links { justify-content: flex-start; }
+
+  /* GALLERY */
+  .gallery-item { width: 180px; height: 120px; }
 }
 
-@media (max-width: 540px) {
-  .initiatives-grid { grid-template-columns: 1fr; }
+/* --- Small Mobile (≤480px) --- */
+@media (max-width: 480px) {
+  :root { --nav-h: 64px; }
+
+  .logo-img { height: 34px; }
+
+  .hero-logo-img {
+    height: clamp(52px, 18vw, 90px);
+    max-width: 80vw;
+  }
+  .hero-tagline { font-size: 0.72rem; }
+  .hero-description { font-size: 0.9rem; }
+
   .about-stats { grid-template-columns: 1fr 1fr; }
-  .event-item { 
+  .stat-card { padding: 1rem 0.75rem; }
+  .stat-number { font-size: 1.75rem; }
+  .stat-label { font-size: 0.72rem; }
+
+  .initiatives-grid { grid-template-columns: 1fr; }
+
+  .event-item {
     grid-template-columns: 1fr;
     text-align: center;
   }
   .event-date-block {
     flex-direction: row;
-    gap: 0.5rem;
-    align-self: center;
-    width: fit-content;
+    gap: 0.4rem;
+    justify-content: center;
     margin: 0 auto;
+    width: fit-content;
   }
+  .event-day { font-size: 1.4rem; }
+  .event-meta {
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+  }
+
+  .news-card { padding: 1rem; }
+  .section-title { font-size: 1.4rem; }
+
+  .join-title { font-size: 1.4rem; }
+  .join-desc { font-size: 0.9rem; }
+
+  .gallery-item { width: 140px; height: 100px; }
 }
+
+/* --- Extra Small (≤360px) --- */
+@media (max-width: 360px) {
+  .container { padding: 0 1rem; }
+  .hero-logo-img { max-width: 90vw; }
+  .about-stats { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .stat-number { font-size: 1.5rem; }
+  .nav-link { font-size: 0.95rem; }
+}
+
+/* --- Touch device improvements --- */
+@media (hover: none) and (pointer: coarse) {
+  .btn { min-height: 48px; }
+  .nav-link { min-height: 48px; display: flex; align-items: center; }
+  .social-link { width: 44px; height: 44px; }
+  .news-read-more { padding: 0.5rem 0; display: inline-block; }
+  input, select { min-height: 48px; }
+}
+
