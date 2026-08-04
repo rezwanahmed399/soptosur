@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>সপ্তসুর — Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-box">
+      <div class="login-logo">
+        <img src="../assets/images/saptasur-logo.svg" alt="সপ্তসুর" />
+      </div>
+      <h1 class="login-title">Admin Panel</h1>
+      <p class="login-sub">GitHub Personal Access Token দিয়ে login করুন</p>
+      <div class="login-form">
+        <div class="field-group">
+          <label>GitHub Token</label>
+          <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxx" autocomplete="off" />
+        </div>
+        <div class="field-group">
+          <label>Repository (owner/repo)</label>
+          <input type="text" id="repo-input" value="rezwanahmed399/soptosur" />
+        </div>
+        <button class="btn-login" id="login-btn">Login করুন</button>
+        <p class="login-help">
+          Token পেতে: <a href="https://github.com/settings/tokens/new?scopes=repo&description=Soptosur+Admin" target="_blank">GitHub Settings → Tokens → Generate</a>
+          <br><small>Scope: <code>repo</code> দিন</small>
+        </p>
+        <div class="login-error" id="login-error"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN ADMIN APP -->
+  <div class="admin-app hidden" id="admin-app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <img src="../assets/images/saptasur-logo.svg" alt="সপ্তসুর" />
+        <span>Admin</span>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-section="dashboard">
+          <span class="icon">⬡</span> Dashboard
+        </a>
+        <a href="#" class="nav-item" data-section="hero">
+          <span class="icon">🦸</span> Hero Section
+        </a>
+        <a href="#" class="nav-item" data-section="about">
+          <span class="icon">ℹ️</span> About
+        </a>
+        <a href="#" class="nav-item" data-section="news">
+          <span class="icon">📰</span> সংবাদ
+        </a>
+        <a href="#" class="nav-item" data-section="events">
+          <span class="icon">📅</span> অনুষ্ঠান
+        </a>
+        <a href="#" class="nav-item" data-section="initiatives">
+          <span class="icon">💡</span> উদ্যোগ
+        </a>
+        <a href="#" class="nav-item" data-section="contact">
+          <span class="icon">📞</span> যোগাযোগ
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="https://soptosur.vercel.app" target="_blank" class="view-site-btn">🌐 ওয়েবসাইট দেখুন</a>
+        <button class="logout-btn" id="logout-btn">Logout</button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <div class="topbar">
+        <button class="menu-toggle" id="menu-toggle">☰</button>
+        <h2 class="topbar-title" id="topbar-title">Dashboard</h2>
+        <div class="topbar-right">
+          <div class="save-status" id="save-status"></div>
+          <button class="btn-save" id="global-save-btn" onclick="saveToGitHub()">
+            💾 Save & Deploy
+          </button>
+        </div>
+      </div>
+
+      <!-- DASHBOARD -->
+      <section class="section-panel active" id="panel-dashboard">
+        <div class="dashboard-grid">
+          <div class="dash-card" onclick="switchSection('news')">
+            <div class="dash-icon">📰</div>
+            <div class="dash-info">
+              <span class="dash-count" id="dash-news-count">0</span>
+              <span class="dash-label">সংবাদ</span>
+            </div>
+          </div>
+          <div class="dash-card" onclick="switchSection('events')">
+            <div class="dash-icon">📅</div>
+            <div class="dash-info">
+              <span class="dash-count" id="dash-events-count">0</span>
+              <span class="dash-label">অনুষ্ঠান</span>
+            </div>
+          </div>
+          <div class="dash-card" onclick="switchSection('initiatives')">
+            <div class="dash-icon">💡</div>
+            <div class="dash-info">
+              <span class="dash-count" id="dash-init-count">0</span>
+              <span class="dash-label">উদ্যোগ</span>
+            </div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-icon">🌐</div>
+            <div class="dash-info">
+              <span class="dash-count">Live</span>
+              <span class="dash-label">Vercel Status</span>
+            </div>
+          </div>
+        </div>
+        <div class="dash-info-box">
+          <h3>কীভাবে ব্যবহার করবেন</h3>
+          <ol>
+            <li>বাঁ দিকের menu থেকে section বেছে নিন</li>
+            <li>Content পরিবর্তন করুন</li>
+            <li>উপরে <strong>"Save & Deploy"</strong> বোতামে ক্লিক করুন</li>
+            <li>৩০ সেকেন্ডে ওয়েবসাইট আপডেট হয়ে যাবে!</li>
+          </ol>
+        </div>
+        <div class="deploy-log" id="deploy-log">
+          <h3>সর্বশেষ Deploy</h3>
+          <div class="log-empty">এখনো কোনো deploy হয়নি</div>
+        </div>
+      </section>
+
+      <!-- HERO SECTION -->
+      <section class="section-panel" id="panel-hero">
+        <div class="panel-header">
+          <h2>Hero Section</h2>
+          <p>ওয়েবসাইটের প্রথম পর্দায় যা দেখা যায়</p>
+        </div>
+        <div class="form-grid">
+          <div class="field-group full">
+            <label>Tagline (ছোট লেখা, উপরে)</label>
+            <input type="text" id="hero-tagline" />
+          </div>
+          <div class="field-group full">
+            <label>বর্ণনা</label>
+            <textarea id="hero-description" rows="3"></textarea>
+          </div>
+          <div class="field-group">
+            <label>Primary Button লেখা</label>
+            <input type="text" id="hero-btn-primary" />
+          </div>
+          <div class="field-group">
+            <label>Primary Button Link</label>
+            <input type="text" id="hero-btn-primary-href" />
+          </div>
+          <div class="field-group">
+            <label>Ghost Button লেখা</label>
+            <input type="text" id="hero-btn-ghost" />
+          </div>
+          <div class="field-group">
+            <label>Ghost Button Link</label>
+            <input type="text" id="hero-btn-ghost-href" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT SECTION -->
+      <section class="section-panel" id="panel-about">
+        <div class="panel-header">
+          <h2>About Section</h2>
+          <p>ক্লাবের পরিচয় ও statistics</p>
+        </div>
+        <div class="form-grid">
+          <div class="field-group full">
+            <label>Lead Text (বড় প্রথম বাক্য)</label>
+            <textarea id="about-lead" rows="2"></textarea>
+          </div>
+          <div class="field-group full">
+            <label>বিস্তারিত বর্ণনা</label>
+            <textarea id="about-body" rows="4"></textarea>
+          </div>
+        </div>
+        <div class="sub-section">
+          <h3>Statistics</h3>
+          <div class="stats-grid" id="stats-editor"></div>
+        </div>
+      </section>
+
+      <!-- NEWS SECTION -->
+      <section class="section-panel" id="panel-news">
+        <div class="panel-header">
+          <h2>সংবাদ ব্যবস্থাপনা</h2>
+          <p>সংবাদ যোগ করুন, সম্পাদনা করুন বা মুছে ফেলুন</p>
+          <button class="btn-add" onclick="addNews()">+ নতুন সংবাদ</button>
+        </div>
+        <div class="items-list" id="news-list"></div>
+      </section>
+
+      <!-- EVENTS SECTION -->
+      <section class="section-panel" id="panel-events">
+        <div class="panel-header">
+          <h2>অনুষ্ঠান ব্যবস্থাপনা</h2>
+          <p>আসন্ন অনুষ্ঠান যোগ করুন বা সম্পাদনা করুন</p>
+          <button class="btn-add" onclick="addEvent()">+ নতুন অনুষ্ঠান</button>
+        </div>
+        <div class="items-list" id="events-list"></div>
+      </section>
+
+      <!-- INITIATIVES SECTION -->
+      <section class="section-panel" id="panel-initiatives">
+        <div class="panel-header">
+          <h2>উদ্যোগ ব্যবস্থাপনা</h2>
+          <p>ক্লাবের উদ্যোগসমূহ পরিচালনা করুন</p>
+          <button class="btn-add" onclick="addInitiative()">+ নতুন উদ্যোগ</button>
+        </div>
+        <div class="items-list" id="initiatives-list"></div>
+      </section>
+
+      <!-- CONTACT SECTION -->
+      <section class="section-panel" id="panel-contact">
+        <div class="panel-header">
+          <h2>যোগাযোগ তথ্য</h2>
+          <p>ক্লাবের যোগাযোগ ও সোশ্যাল মিডিয়া লিঙ্ক</p>
+        </div>
+        <div class="form-grid">
+          <div class="field-group">
+            <label>📧 ইমেইল</label>
+            <input type="text" id="contact-email" />
+          </div>
+          <div class="field-group">
+            <label>📞 ফোন</label>
+            <input type="text" id="contact-phone" />
+          </div>
+          <div class="field-group full">
+            <label>📍 ঠিকানা</label>
+            <input type="text" id="contact-address" />
+          </div>
+          <div class="field-group">
+            <label>Facebook URL</label>
+            <input type="text" id="contact-facebook" placeholder="https://facebook.com/..." />
+          </div>
+          <div class="field-group">
+            <label>Instagram URL</label>
+            <input type="text" id="contact-instagram" placeholder="https://instagram.com/..." />
+          </div>
+          <div class="field-group">
+            <label>YouTube URL</label>
+            <input type="text" id="contact-youtube" placeholder="https://youtube.com/..." />
+          </div>
+          <div class="field-group full">
+            <label>Footer Tagline</label>
+            <input type="text" id="footer-tagline" />
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL for editing items -->
+  <div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">Edit</h3>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeModal()">বাতিল</button>
+        <button class="btn-save-modal" id="modal-save-btn">সংরক্ষণ করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast hidden" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

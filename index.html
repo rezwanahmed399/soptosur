@@ -496,5 +496,164 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+  // =============================================
+  // Dynamic content loader from content.json
+  // =============================================
+  async function loadContent() {
+    try {
+      const res = await fetch('./content.json?v=' + Date.now());
+      if (!res.ok) return;
+      const c = await res.json();
+
+      // HERO
+      const heroTagline = document.querySelector('.hero-tagline');
+      const heroDesc = document.querySelector('.hero-description');
+      const heroBtnPrimary = document.querySelector('#hero-explore-btn');
+      const heroBtnGhost = document.querySelector('#hero-about-btn');
+      if (heroTagline) heroTagline.textContent = c.hero.tagline;
+      if (heroDesc) heroDesc.innerHTML = c.hero.description.replace(/,\s*/g, ',<br>');
+      if (heroBtnPrimary) { heroBtnPrimary.textContent = c.hero.btn_primary; heroBtnPrimary.href = c.hero.btn_primary_href; }
+      if (heroBtnGhost) { heroBtnGhost.textContent = c.hero.btn_ghost; heroBtnGhost.href = c.hero.btn_ghost_href; }
+
+      // ABOUT
+      const aboutLead = document.querySelector('.about-lead');
+      const aboutBody = document.querySelectorAll('.about-text p:not(.about-lead)');
+      if (aboutLead) aboutLead.textContent = c.about.lead;
+      if (aboutBody.length) aboutBody[0].textContent = c.about.body;
+
+      // STATS
+      const statCards = document.querySelectorAll('.stat-card');
+      c.about.stats.forEach((s, i) => {
+        if (statCards[i]) {
+          statCards[i].querySelector('.stat-number').textContent = s.number;
+          statCards[i].querySelector('.stat-label').textContent = s.label;
+        }
+      });
+
+      // NEWS
+      renderNews(c.news);
+
+      // EVENTS
+      renderEvents(c.events);
+
+      // INITIATIVES
+      renderInitiatives(c.initiatives);
+
+      // CONTACT
+      const emailEls = document.querySelectorAll('.footer-links-group li');
+      if (emailEls.length > 0) {
+        const footerGroups = document.querySelectorAll('.footer-links-group');
+        if (footerGroups[1]) {
+          footerGroups[1].querySelector('ul').innerHTML = `
+            <li>📧 ${c.contact.email}</li>
+            <li>📞 ${c.contact.phone}</li>
+            <li>📍 ${c.contact.address}</li>`;
+        }
+      }
+
+      // SOCIAL LINKS
+      const fb = document.getElementById('footer-facebook');
+      const ig = document.getElementById('footer-instagram');
+      const yt = document.getElementById('footer-youtube');
+      if (fb && c.contact.facebook !== '#') fb.href = c.contact.facebook;
+      if (ig && c.contact.instagram !== '#') ig.href = c.contact.instagram;
+      if (yt && c.contact.youtube !== '#') yt.href = c.contact.youtube;
+
+      // FOOTER
+      if (c.footer?.tagline) {
+        const ft = document.querySelector('.footer-tagline');
+        if (ft) ft.textContent = c.footer.tagline;
+      }
+
+    } catch(e) {
+      console.log('Content load failed, using static HTML:', e.message);
+    }
+  }
+
+  function renderNews(news) {
+    const grid = document.querySelector('.news-grid');
+    if (!grid || !news?.length) return;
+    const featured = news.find(n => n.featured) || news[0];
+    const rest = news.filter(n => !n.featured).slice(0, 3);
+
+    grid.innerHTML = `
+      <article class="news-card news-card-featured" id="news-featured">
+        <div class="news-card-img">
+          <div class="news-img-placeholder news-img-1">
+            <div class="placeholder-botanical">
+              <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="60" cy="40" r="35" fill="none" stroke="#8B5E3C" stroke-width="0.8" stroke-dasharray="4 3"/>
+                <path d="M60 70 C50 55 30 48 20 30" stroke="#8B5E3C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                <path d="M60 70 C70 55 90 48 100 30" stroke="#8B5E3C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                <ellipse cx="38" cy="42" rx="10" ry="16" fill="none" stroke="#8B5E3C" stroke-width="0.8" transform="rotate(-25 38 42)"/>
+                <ellipse cx="82" cy="42" rx="10" ry="16" fill="none" stroke="#8B5E3C" stroke-width="0.8" transform="rotate(25 82 42)"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="news-card-body">
+          <div class="news-meta">
+            <span class="news-category">${featured.category}</span>
+            <time class="news-date">${featured.date}</time>
+          </div>
+          <h3 class="news-title">${featured.title}</h3>
+          <p class="news-excerpt">${featured.excerpt}</p>
+          <a href="${featured.link}" class="news-read-more">বিস্তারিত পড়ুন <span class="arrow">→</span></a>
+        </div>
+      </article>
+      ${rest.map((item, i) => `
+      <article class="news-card" id="news-card-${i+2}">
+        <div class="news-card-body">
+          <div class="news-meta">
+            <span class="news-category">${item.category}</span>
+            <time class="news-date">${item.date}</time>
+          </div>
+          <h3 class="news-title">${item.title}</h3>
+          <p class="news-excerpt">${item.excerpt}</p>
+          <a href="${item.link}" class="news-read-more">বিস্তারিত পড়ুন <span class="arrow">→</span></a>
+        </div>
+      </article>`).join('')}`;
+  }
+
+  function renderEvents(events) {
+    const list = document.querySelector('.events-list');
+    if (!list || !events?.length) return;
+    list.innerHTML = events.map((item, i) => `
+      <div class="event-item" id="event-${i+1}">
+        <div class="event-date-block">
+          <span class="event-day">${item.day}</span>
+          <span class="event-month">${item.month}</span>
+        </div>
+        <div class="event-details">
+          <h3 class="event-title">${item.title}</h3>
+          <div class="event-meta">
+            <span class="event-time">🕙 ${item.time}</span>
+            <span class="event-location">📍 ${item.location}</span>
+          </div>
+          <p class="event-desc">${item.desc}</p>
+        </div>
+        <div class="event-action">
+          <a href="${item.link}" class="btn btn-sm btn-${item.btn_style}">${item.btn_label}</a>
+        </div>
+      </div>`).join('');
+  }
+
+  function renderInitiatives(initiatives) {
+    const grid = document.querySelector('.initiatives-grid');
+    if (!grid || !initiatives?.length) return;
+    const icons = ['🎵','👥','🎼','🏆','❤️','🌙'];
+    grid.innerHTML = initiatives.map((item, i) => `
+      <div class="initiative-card" id="initiative-${i+1}">
+        <div class="initiative-icon">
+          <span style="font-size:2rem">${icons[i] || '🎵'}</span>
+        </div>
+        <h3 class="initiative-title">${item.title}</h3>
+        <p class="initiative-desc">${item.desc}</p>
+      </div>`).join('');
+  }
+
+  loadContent();
+  </script>
 </body>
 </html>
