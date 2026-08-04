@@ -998,4 +998,131 @@ input:focus, textarea:focus, select:focus {
   .preview-container { height: 500px; }
 }
 
+/* ─── LOGIN TABS & GOOGLE LOGIN ─── */
+.login-tabs {
+  display: flex;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  margin-bottom: 1.2rem;
+  gap: 4px;
+}
+.login-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem;
+  border: none;
+  background: transparent;
+  color: var(--text2);
+  font-family: var(--bengali);
+  font-size: 0.82rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all var(--ease);
+}
+.login-tab.active {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+.login-tab svg { width: 16px; height: 16px; }
+
+.google-login-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+.custom-google-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  color: #3c4043;
+  border: 1px solid #dadce0;
+  border-radius: var(--radius);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--ease), box-shadow var(--ease);
+}
+.custom-google-btn:hover {
+  background: #f8f9fa;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+.custom-google-btn svg { width: 20px; height: 20px; }
+
+/* ─── ADMIN USERS ACCESS CONTROL ─── */
+.admin-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: border-color var(--ease);
+}
+.admin-card:hover { border-color: var(--border2); }
+.admin-user-info { display: flex; align-items: center; gap: 0.8rem; }
+.admin-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--accent-bg);
+  color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1rem;
+  border: 1px solid rgba(193,122,58,0.3);
+}
+.admin-email { font-size: 0.92rem; font-weight: 600; color: var(--text); }
+.admin-role-badge { font-size: 0.72rem; color: var(--text3); font-family: var(--bengali); }
+
+.badge-active {
+  background: rgba(82, 201, 122, 0.12);
+  color: var(--green);
+  border: 1px solid rgba(82, 201, 122, 0.3);
+  padding: 0.15rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-family: var(--bengali);
+}
+.badge-blocked {
+  background: rgba(224, 82, 82, 0.12);
+  color: var(--red);
+  border: 1px solid rgba(224, 82, 82, 0.3);
+  padding: 0.15rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-family: var(--bengali);
+}
+
+.btn-block-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--bengali);
+  font-size: 0.78rem;
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text2);
+  cursor: pointer;
+  transition: all var(--ease);
+}
+.btn-block-toggle.block { color: var(--red); border-color: rgba(224,82,82,0.3); }
+.btn-block-toggle.unblock { color: var(--green); border-color: rgba(82,201,122,0.3); }
+.btn-block-toggle:hover { background: var(--surface3); }
+
+
 

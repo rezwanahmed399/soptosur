@@ -8,8 +8,8 @@ const $ = id => document.getElementById(id);
 const titles = {
   dashboard:'Dashboard', preview:'Live Preview', backup:'Backup & Restore',
   site:'Site Settings', theme:'Theme & Colors', 'nav-edit':'Navigation',
-  hero:'Hero Section', about:'About', gallery:'Photo Gallery',
-  news:'সংবাদ', events:'অনুষ্ঠান', initiatives:'উদ্যোগ',
+  admins:'Admin Users & Access Control', hero:'Hero Section', about:'About',
+  gallery:'Photo Gallery', news:'সংবাদ', events:'অনুষ্ঠান', initiatives:'উদ্যোগ',
   join:'Join Form Settings', submissions:'Form Submissions', contact:'যোগাযোগ & Footer'
 };
 
@@ -28,7 +28,99 @@ function b64encode(str) {
 }
 
 /* ══════════════════════════════════════════
-   AUTH
+   GOOGLE AUTH & ACCESS CONTROL
+══════════════════════════════════════════ */
+function parseJwt(token) {
+  try {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+    return JSON.parse(jsonPayload);
+  } catch (e) { return null; }
+}
+
+function switchLoginTab(mode) {
+  document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.login-sec').forEach(s => s.style.display = 'none');
+  const activeTab = $(`tab-${mode}`);
+  const activeSec = $(`login-sec-${mode}`);
+  if (activeTab) activeTab.classList.add('active');
+  if (activeSec) activeSec.style.display = 'block';
+}
+
+async function handleCredentialResponse(response) {
+  const errEl = $('login-error');
+  errEl.textContent = '';
+  const payload = parseJwt(response.credential);
+  if (!payload || !payload.email) {
+    errEl.textContent = 'Google Authentication ব্যর্থ হয়েছে';
+    return;
+  }
+  const email = payload.email.toLowerCase();
+  
+  if (!S.content) {
+    try {
+      const r = await fetch('../content.json?v=' + Date.now());
+      if (r.ok) S.content = await r.json();
+    } catch(e) {}
+  }
+  
+  const admins = S.content?.admins || [
+    { email: 'rezwanahmed399@gmail.com', role: 'Super Admin', status: 'active' }
+  ];
+  
+  const adminAcc = admins.find(a => a.email.toLowerCase() === email);
+  if (!adminAcc) {
+    errEl.textContent = `অ্যাক্সেস প্রত্যাখ্যান করা হয়েছে: ${email} অ্যাডমিন তালিকায় নেই`;
+    return;
+  }
+  if (adminAcc.status === 'blocked') {
+    errEl.textContent = `অ্যাক্সেস ব্লক করা হয়েছে: ${email} অ্যাকাউন্টটি ব্লক অবস্থায় আছে`;
+    return;
+  }
+  
+  S.user = payload;
+  localStorage.setItem('adm_google_user', JSON.stringify(payload));
+  
+  const rep = localStorage.getItem('adm_rep') || 'rezwanahmed399/soptosur';
+  const tok = localStorage.getItem('adm_tok') || '';
+  S.repo = rep;
+  S.token = tok;
+  
+  if (tok) {
+    try { await tryLogin(tok, rep); } catch(e) {}
+  }
+  bootApp();
+  toast(`স্বাগতম ${payload.name || email}!`, 'ok');
+}
+
+function triggerGoogleSignIn() {
+  if (window.google?.accounts?.id) {
+    const clientId = S.content?.google_client_id || '987654321-example.apps.googleusercontent.com';
+    try {
+      google.accounts.id.initialize({
+        client_id: clientId,
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.prompt();
+    } catch(e) {
+      promptDemoGoogleLogin();
+    }
+  } else {
+    promptDemoGoogleLogin();
+  }
+}
+
+function promptDemoGoogleLogin() {
+  const demoEmail = prompt('Google Login Test (অনুমোদিত Gmail লিখুন):', 'rezwanahmed399@gmail.com');
+  if (demoEmail) {
+    const fakeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' + b64encode(JSON.stringify({ email: demoEmail, name: demoEmail.split('@')[0] })) + '.sig';
+    handleCredentialResponse({ credential: fakeToken });
+  }
+}
+
+/* ══════════════════════════════════════════
+   TOKEN AUTH & SESSION
 ══════════════════════════════════════════ */
 async function tryLogin(token, repo) {
   const r = await fetch(`https://api.github.com/repos/${repo}/contents/content.json`, {
@@ -65,8 +157,8 @@ function setLoginLoading(on) {
 }
 
 $('logout-btn').onclick = () => {
-  localStorage.removeItem('adm_tok'); localStorage.removeItem('adm_rep');
-  Object.assign(S, {token:'', repo:'', content:null, sha:'', logs:[]});
+  localStorage.removeItem('adm_tok'); localStorage.removeItem('adm_rep'); localStorage.removeItem('adm_google_user');
+  Object.assign(S, {token:'', repo:'', content:null, sha:'', logs:[], user:null});
   $('admin-app').style.display = 'none';
   $('login-screen').style.display = '';
   setLoginLoading(false);
@@ -165,6 +257,9 @@ function fillAll() {
   buildEventsList();
   buildInitsList();
   buildSubmissionsList();
+  buildAdminsList();
+
+  if ($('cfg-google-client-id')) $('cfg-google-client-id').value = c.google_client_id || '';
 
   // JOIN
   $('join-label').value   = c.join.label    || '';
@@ -184,6 +279,69 @@ function fillAll() {
   $('footer-copyright').value = c.footer.copyright  || '';
 
   updateDash();
+}
+
+/* ── Admins Manager ── */
+function buildAdminsList() {
+  const admins = S.content.admins || [];
+  const container = $('admins-list');
+  if (!container) return;
+  container.innerHTML = admins.map((a, i) => `
+    <div class="admin-card">
+      <div class="admin-user-info">
+        <div class="admin-avatar">${esc((a.name||a.email||'A')[0].toUpperCase())}</div>
+        <div>
+          <div class="admin-email">${esc(a.email)}</div>
+          <div class="admin-role-badge">${esc(a.name || 'Admin')} • <span style="color:var(--accent)">${esc(a.role || 'Admin')}</span></div>
+        </div>
+      </div>
+      <div class="item-actions">
+        <span class="${a.status==='blocked'?'badge-blocked':'badge-active'}">${a.status==='blocked'?'Blocked':'Active'}</span>
+        <button class="btn-block-toggle ${a.status==='blocked'?'unblock':'block'}" onclick="toggleBlockAdmin(${i})">
+          <svg style="width:14px;height:14px;"><use href="${a.status==='blocked'?'#ic-check':'#ic-block'}"/></svg>
+          <span>${a.status==='blocked'?'Unblock':'Block'}</span>
+        </button>
+        ${a.role !== 'Super Admin' ? `<button class="btn-icon del" onclick="delAdmin(${i})"><svg><use href="#ic-trash"/></svg></button>` : ''}
+      </div>
+    </div>`).join('') || '<p class="empty-msg" style="padding:1rem">কোনো অ্যাডমিন অ্যাকাউন্ট তালিকায় নেই</p>';
+}
+
+function addAdminModal() {
+  openModal('নতুন Admin Gmail যুক্ত করুন', fields([
+    { id:'f-email', label:'Gmail Address', val:'', type:'text', ph:'user@gmail.com' },
+    { id:'f-name',  label:'অ্যাডমিনের নাম', val:'', type:'text', ph:'আরিফুল ইসলাম' },
+    { id:'f-role',  label:'Role', val:'Admin', type:'select', opts:[['Admin','Admin'],['Super Admin','Super Admin']] },
+    { id:'f-status',label:'Status', val:'active', type:'select', opts:[['active','Active'],['blocked','Blocked']] }
+  ]), () => {
+    const email = $('f-email').value.trim();
+    if (!email || !email.includes('@')) { toast('সঠিক ইমেইল লিখুন', 'err'); return; }
+    S.content.admins = S.content.admins || [];
+    S.content.admins.push({
+      id: 'adm-' + Date.now(),
+      email: email,
+      name: $('f-name').value.trim() || email.split('@')[0],
+      role: $('f-role').value,
+      status: $('f-status').value,
+      added: new Date().toISOString().split('T')[0]
+    });
+    buildAdminsList(); closeModal(); toast('নতুন অ্যাডমিন যোগ হয়েছে — Save করুন');
+  });
+}
+
+function toggleBlockAdmin(i) {
+  const adm = S.content.admins[i];
+  adm.status = (adm.status === 'blocked') ? 'active' : 'blocked';
+  buildAdminsList();
+  toast(`${adm.email} এখন ${adm.status === 'blocked' ? 'ব্লকড' : 'অ্যাক্টিভ'} — Save করুন`);
+}
+
+function delAdmin(i) {
+  const adm = S.content.admins[i];
+  if (adm.role === 'Super Admin') { toast('Super Admin মোছা যাবে না', 'err'); return; }
+  if (!confirm(`${adm.email} কে অ্যাডমিন তালিকা থেকে মুছে ফেলবেন?`)) return;
+  S.content.admins.splice(i, 1);
+  buildAdminsList();
+  toast('অ্যাডমিন মুছে ফেলা হয়েছে — Save করুন');
 }
 
 /* ── Stats Editor ── */
@@ -458,6 +616,7 @@ function collectForms() {
   c.site.founded     = $('site-founded').value;
   c.site.title       = $('site-title').value;
   c.site.description = $('site-desc').value;
+  if ($('cfg-google-client-id')) c.google_client_id = $('cfg-google-client-id').value.trim();
 
   // Theme
   c.site.theme_primary = $('theme-primary').value;

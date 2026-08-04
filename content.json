@@ -150,5 +150,16 @@
     "tagline": "সুরের আলোয় আলোকিত হোক প্রতিটি হৃদয়।",
     "copyright": "© ২০২৬ সপ্তসুর। সর্বস্বত্ব সংরক্ষিত।",
     "credit": "সুরের সাধনায় একত্রিত"
-  }
+  },
+  "google_client_id": "",
+  "admins": [
+    {
+      "id": "adm-1",
+      "email": "rezwanahmed399@gmail.com",
+      "name": "Super Admin",
+      "role": "Super Admin",
+      "status": "active",
+      "added": "২০২৬-০৮-০৪"
+    }
+  ]
 }
