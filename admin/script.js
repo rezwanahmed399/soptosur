@@ -13,6 +13,20 @@ const S = {
 const $ = id => document.getElementById(id);
 const titles = { dashboard:'Dashboard', hero:'Hero Section', about:'About', news:'সংবাদ', events:'অনুষ্ঠান', initiatives:'উদ্যোগ', contact:'যোগাযোগ' };
 
+/* UTF-8 safe base64 helpers */
+function b64decode(str) {
+  const bin = atob(str.replace(/\n/g,''));
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder('utf-8').decode(bytes);
+}
+function b64encode(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+
 /* ─────────────────────────────────────────
    AUTH
 ───────────────────────────────────────── */
@@ -24,7 +38,7 @@ async function tryLogin(token, repo) {
   const d = await r.json();
   S.token = token; S.repo = repo;
   S.sha = d.sha;
-  S.content = JSON.parse(atob(d.content.replace(/\n/g,'')));
+  S.content = JSON.parse(b64decode(d.content));
 }
 
 $('login-btn').onclick = async () => {
@@ -263,7 +277,7 @@ async function saveToGitHub() {
   try {
     const body = JSON.stringify({
       message: `Admin update ${new Date().toLocaleString('bn-BD')}`,
-      content: btoa(unescape(encodeURIComponent(JSON.stringify(S.content, null, 2)))),
+      content: b64encode(JSON.stringify(S.content, null, 2)),
       sha: S.sha
     });
 
