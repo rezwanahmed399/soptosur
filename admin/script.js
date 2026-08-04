@@ -57,6 +57,8 @@ $('login-btn').onclick = async () => {
 };
 
 $('token-input').addEventListener('keypress', e => { if(e.key==='Enter') $('login-btn').click(); });
+$('repo-input').addEventListener('keypress', e => { if(e.key==='Enter') $('login-btn').click(); });
+
 function setLoginLoading(on) {
   $('login-btn').disabled = on;
   $('login-btn').textContent = on ? 'যাচাই করছি...' : 'Login করুন';
