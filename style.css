@@ -1110,7 +1110,7 @@ p { color: var(--text-body); }
     padding: 0.75rem !important;
   }
   .nav-toggle { display: flex; }
-  .logo-img { height: 38px; }
+  .logo-img { height: 44px; width: auto; }
 
   /* HERO */
   .hero {
@@ -1205,7 +1205,7 @@ p { color: var(--text-body); }
 @media (max-width: 480px) {
   :root { --nav-h: 64px; }
 
-  .logo-img { height: 34px; }
+  .logo-img { height: 40px; width: auto; }
 
   .hero-logo-img {
     height: clamp(52px, 18vw, 90px);
