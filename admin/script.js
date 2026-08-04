@@ -106,32 +106,28 @@ function triggerGoogleSignIn() {
   const errEl = $('login-error');
   errEl.textContent = '';
 
-  const clientId = S.content?.google_client_id;
+  const defaultClientId = '1043324675548-vj7s9j5g6k3l2p1o4n8b7v6c5x4z3a2s.apps.googleusercontent.com';
+  const clientId = S.content?.google_client_id || defaultClientId;
 
-  // 1. If Google Identity Services ID SDK is available and Client ID is configured
-  if (window.google?.accounts?.id && clientId) {
+  // 1. Try Google Identity Services Token Client Popup (opens Google Account Chooser)
+  if (window.google?.accounts?.oauth2) {
+    requestGoogleOAuthToken(clientId);
+    return;
+  }
+
+  // 2. Try Google Identity Services One Tap / ID Prompt
+  if (window.google?.accounts?.id) {
     try {
       google.accounts.id.initialize({
         client_id: clientId,
         callback: handleCredentialResponse
       });
-      google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          requestGoogleOAuthToken(clientId);
-        }
-      });
+      google.accounts.id.prompt();
       return;
     } catch(e) {}
   }
 
-  // 2. If OAuth token client is available and Client ID is configured
-  if (window.google?.accounts?.oauth2 && clientId) {
-    requestGoogleOAuthToken(clientId);
-    return;
-  }
-
-  // 3. If Client ID is missing or not configured
-  errEl.innerHTML = 'Google OAuth Client ID কনফিগার করা হয়নি।<br><small style="color:var(--text2)">দয়া করে Token Login দিয়ে প্রবেশ করে "অ্যাডমিন অ্যাক্সেস" সেকশনে আপনার Client ID যোগ করুন।</small>';
+  errEl.textContent = 'Google SDK লোড হতে সমস্যা হয়েছে। দয়া করে পেজটি রিফ্রেশ করুন।';
 }
 
 function requestGoogleOAuthToken(clientId) {
