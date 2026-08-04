@@ -4,7 +4,7 @@
 
 ## 🎵 ওয়েবসাইট
 
-🔗 **Live:** https://rezwanahmed399.github.io/saptasur/
+🔗 **Live:** https://soptosur.vercel.app/
 
 ## 📁 ফাইল স্ট্রাকচার
 
