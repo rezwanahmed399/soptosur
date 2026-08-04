@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>সপ্তসুর — Admin</title>
+  <title>সপ্তসুর — Advanced Admin CMS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,6 +24,11 @@
   <symbol id="ic-join"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></symbol>
   <symbol id="ic-contact" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.42 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6z"/></symbol>
   <symbol id="ic-theme"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></symbol>
+  <symbol id="ic-gallery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol>
+  <symbol id="ic-subs"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></symbol>
+  <symbol id="ic-backup"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol>
+  <symbol id="ic-preview" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="ic-search"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
   <symbol id="ic-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></symbol>
   <symbol id="ic-logout"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></symbol>
   <symbol id="ic-save"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol>
@@ -36,27 +41,29 @@
   <symbol id="ic-up"      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></symbol>
   <symbol id="ic-down"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></symbol>
   <symbol id="ic-check"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="ic-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+  <symbol id="ic-upload"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></symbol>
 </svg>
 
-<!-- ═══════ LOGIN ═══════ -->
+<!-- LOGIN -->
 <div class="login-screen" id="login-screen">
   <div class="login-card">
     <div class="login-brand">
       <div class="login-icon"><svg><use href="#ic-music"/></svg></div>
-      <div><h1>সপ্তসুর</h1><span>Admin Panel</span></div>
+      <div><h1>সপ্তসুর</h1><span>Enterprise Admin CMS</span></div>
     </div>
-    <p class="login-subtitle">GitHub Token দিয়ে login করুন</p>
+    <p class="login-subtitle">GitHub Personal Access Token দিয়ে লগইন করুন</p>
     <div class="login-form">
       <div class="field"><label>GitHub Personal Access Token</label><input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"/></div>
       <div class="field"><label>Repository (owner/repo)</label><input type="text" id="repo-input" value="rezwanahmed399/soptosur"/></div>
       <div id="login-error" class="login-error"></div>
       <button class="btn-primary-full" id="login-btn">Login করুন</button>
-      <p class="login-help">Token নেই? <a href="https://github.com/settings/tokens/new?scopes=repo&description=Soptosur+Admin" target="_blank">এখানে বানান →</a><br><small>Scope: <code>repo</code> দিতে হবে</small></p>
+      <p class="login-help">Token নেই? <a href="https://github.com/settings/tokens/new?scopes=repo&description=Soptosur+Admin" target="_blank">এখানে তৈরি করুন →</a><br><small>Scope: <code>repo</code> দেওয়া বাধ্যতামূলক</small></p>
     </div>
   </div>
 </div>
 
-<!-- ═══════ APP ═══════ -->
+<!-- APP LAYOUT -->
 <div class="app" id="admin-app" style="display:none">
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
@@ -65,38 +72,50 @@
     <div class="sidebar-top">
       <div class="sidebar-brand">
         <div class="brand-icon"><svg><use href="#ic-music"/></svg></div>
-        <div><p class="brand-name">সপ্তসুর</p><p class="brand-sub">Admin</p></div>
+        <div><p class="brand-name">সপ্তসুর</p><p class="brand-sub">Enterprise CMS</p></div>
       </div>
     </div>
     <nav class="sidebar-nav">
-      <p class="nav-group-label">Overview</p>
+      <p class="nav-group-label">Overview & Tools</p>
       <a class="nav-link active" data-section="dashboard"><svg class="nav-icon"><use href="#ic-dash"/></svg><span>Dashboard</span></a>
+      <a class="nav-link" data-section="preview"><svg class="nav-icon"><use href="#ic-preview"/></svg><span>Live Preview</span></a>
+      <a class="nav-link" data-section="backup"><svg class="nav-icon"><use href="#ic-backup"/></svg><span>Backup & Restore</span></a>
 
-      <p class="nav-group-label">Website</p>
+      <p class="nav-group-label">System & Theme</p>
       <a class="nav-link" data-section="site"><svg class="nav-icon"><use href="#ic-site"/></svg><span>Site Settings</span></a>
       <a class="nav-link" data-section="theme"><svg class="nav-icon"><use href="#ic-theme"/></svg><span>Theme & Colors</span></a>
       <a class="nav-link" data-section="nav-edit"><svg class="nav-icon"><use href="#ic-nav"/></svg><span>Navigation</span></a>
 
-      <p class="nav-group-label">Content</p>
+      <p class="nav-group-label">Content Sections</p>
       <a class="nav-link" data-section="hero"><svg class="nav-icon"><use href="#ic-hero"/></svg><span>Hero Section</span></a>
       <a class="nav-link" data-section="about"><svg class="nav-icon"><use href="#ic-about"/></svg><span>About</span></a>
+      <a class="nav-link" data-section="gallery"><svg class="nav-icon"><use href="#ic-gallery"/></svg><span>Photo Gallery</span></a>
       <a class="nav-link" data-section="news"><svg class="nav-icon"><use href="#ic-news"/></svg><span>সংবাদ</span></a>
       <a class="nav-link" data-section="events"><svg class="nav-icon"><use href="#ic-events"/></svg><span>অনুষ্ঠান</span></a>
       <a class="nav-link" data-section="initiatives"><svg class="nav-icon"><use href="#ic-init"/></svg><span>উদ্যোগ</span></a>
-      <a class="nav-link" data-section="join"><svg class="nav-icon"><use href="#ic-join"/></svg><span>Join Form</span></a>
+      <a class="nav-link" data-section="join"><svg class="nav-icon"><use href="#ic-join"/></svg><span>Join Form Settings</span></a>
+      <a class="nav-link" data-section="submissions"><svg class="nav-icon"><use href="#ic-subs"/></svg><span>Form Submissions</span></a>
       <a class="nav-link" data-section="contact"><svg class="nav-icon"><use href="#ic-contact"/></svg><span>যোগাযোগ</span></a>
     </nav>
     <div class="sidebar-bottom">
-      <a href="https://soptosur.vercel.app" target="_blank" class="sidebar-external"><svg class="nav-icon"><use href="#ic-external"/></svg><span>ওয়েবসাইট দেখুন</span></a>
+      <a href="https://soptosur.vercel.app" target="_blank" class="sidebar-external"><svg class="nav-icon"><use href="#ic-external"/></svg><span>ওয়েবসাইট খুলুন</span></a>
       <button class="sidebar-logout" id="logout-btn"><svg class="nav-icon"><use href="#ic-logout"/></svg><span>Logout</span></button>
     </div>
   </aside>
 
-  <!-- MAIN -->
+  <!-- MAIN WRAPPER -->
   <div class="main-wrap">
     <header class="topbar">
       <button class="topbar-menu" id="menu-toggle"><svg><use href="#ic-menu"/></svg></button>
       <h2 class="topbar-title" id="topbar-title">Dashboard</h2>
+      
+      <!-- Global Search Input -->
+      <div class="topbar-search">
+        <svg><use href="#ic-search"/></svg>
+        <input type="text" id="global-search" placeholder="খুঁজুন (সংবাদ, অনুষ্ঠান, উদ্যোগ...)" onkeyup="handleGlobalSearch()" />
+        <div id="search-results" class="search-dropdown" style="display:none"></div>
+      </div>
+
       <div class="topbar-actions">
         <span class="save-status" id="save-status"></span>
         <button class="btn-save" id="save-btn" onclick="saveToGitHub()">
@@ -107,60 +126,93 @@
 
     <main class="content">
 
-      <!-- ── DASHBOARD ── -->
+      <!-- DASHBOARD -->
       <section class="panel active" id="panel-dashboard">
         <div class="stat-row">
           <div class="stat-box" onclick="switchSection('news')"><svg class="stat-icon"><use href="#ic-news"/></svg><div><p class="stat-num" id="dash-news">0</p><p class="stat-lbl">সংবাদ</p></div></div>
           <div class="stat-box" onclick="switchSection('events')"><svg class="stat-icon"><use href="#ic-events"/></svg><div><p class="stat-num" id="dash-events">0</p><p class="stat-lbl">অনুষ্ঠান</p></div></div>
           <div class="stat-box" onclick="switchSection('initiatives')"><svg class="stat-icon"><use href="#ic-init"/></svg><div><p class="stat-num" id="dash-init">0</p><p class="stat-lbl">উদ্যোগ</p></div></div>
-          <div class="stat-box"><svg class="stat-icon" style="color:var(--green)"><use href="#ic-check"/></svg><div><p class="stat-num" style="color:var(--green)">Live</p><p class="stat-lbl">Vercel</p></div></div>
+          <div class="stat-box" onclick="switchSection('submissions')"><svg class="stat-icon" style="color:var(--accent)"><use href="#ic-subs"/></svg><div><p class="stat-num" id="dash-subs" style="color:var(--accent)">0</p><p class="stat-lbl">আবেদন জমা</p></div></div>
         </div>
         <div class="quick-links">
-          <button class="quick-btn" onclick="switchSection('site')"><svg><use href="#ic-site"/></svg>Site Settings</button>
-          <button class="quick-btn" onclick="switchSection('theme')"><svg><use href="#ic-theme"/></svg>Theme Colors</button>
-          <button class="quick-btn" onclick="switchSection('nav-edit')"><svg><use href="#ic-nav"/></svg>Navigation</button>
-          <button class="quick-btn" onclick="switchSection('join')"><svg><use href="#ic-join"/></svg>Join Form</button>
+          <button class="quick-btn" onclick="switchSection('preview')"><svg><use href="#ic-preview"/></svg>Live Preview</button>
+          <button class="quick-btn" onclick="switchSection('gallery')"><svg><use href="#ic-gallery"/></svg>Photo Gallery</button>
+          <button class="quick-btn" onclick="switchSection('backup')"><svg><use href="#ic-backup"/></svg>Backup/Restore</button>
+          <button class="quick-btn" onclick="switchSection('submissions')"><svg><use href="#ic-subs"/></svg>Submissions</button>
         </div>
         <div class="info-card">
-          <h3>কীভাবে ব্যবহার করবেন</h3>
-          <ol><li>বাঁ দিকের menu থেকে section বেছে নিন</li><li>Content পরিবর্তন করুন</li><li><strong>Save &amp; Deploy</strong> বোতামে ক্লিক করুন</li><li>৩০ সেকেন্ডে ওয়েবসাইট আপডেট!</li></ol>
+          <h3>কন্ট্রোল প্যানেল গাইডলাইন</h3>
+          <ol><li>যেকোনো পরিবর্তনের পর উপরে <strong>Save &amp; Deploy</strong> বাটনে ক্লিক করুন।</li><li><strong>Live Preview</strong> অপশন থেকে পরিবর্তনগুলো সাইট লাইভ হওয়ার আগেই সরাসরি পরীক্ষা করুন।</li><li><strong>Backup &amp; Restore</strong> থেকে ডেটা ব্যাকআপ সেভ করে রাখুন।</li></ol>
         </div>
-        <div class="info-card" id="deploy-log"><h3>Deploy ইতিহাস</h3><p class="empty-msg">এখনো কোনো deploy হয়নি</p></div>
+        <div class="info-card" id="deploy-log"><h3>Deploy ইতিহাস</h3><p class="empty-msg">এখনো কোনো ডিপ্লয়মেন্ট রেকর্ড নেই</p></div>
       </section>
 
-      <!-- ── SITE SETTINGS ── -->
+      <!-- LIVE PREVIEW -->
+      <section class="panel" id="panel-preview">
+        <div class="panel-head">
+          <h2>Live Site Preview</h2>
+          <p>অ্যাডমিন প্যানেল থেকেই ওয়েবসাইটের সরাসরি প্রিভিউ দেখুন</p>
+          <button class="btn-add" onclick="refreshPreview()"><svg><use href="#ic-preview"/></svg> রিফ্রেশ প্রিভিউ</button>
+        </div>
+        <div class="preview-container">
+          <iframe id="preview-frame" src="https://soptosur.vercel.app"></iframe>
+        </div>
+      </section>
+
+      <!-- BACKUP & RESTORE -->
+      <section class="panel" id="panel-backup">
+        <div class="panel-head">
+          <h2>Backup &amp; Restore</h2>
+          <p>ওয়েবসাইট ডেটা ব্যাকআপ ও ভুল হলে পূর্বের ভার্সন রিস্টোর করুন</p>
+        </div>
+        <div class="form-grid">
+          <div class="color-card full">
+            <h3>১. ডাউনলোড ব্যাকআপ (JSON)</h3>
+            <p class="color-hint">আপনার ওয়েবসাইটের বর্তমান সমস্ত কন্টেন্ট ও সেটিংস একটি JSON ফাইল হিসেবে পিসিতে সেভ রাখুন।</p>
+            <button class="btn-primary-full" style="width:auto; margin-top:0.8rem;" onclick="downloadBackup()"><svg style="width:16px;height:16px;display:inline-block;vertical-align:middle;margin-right:5px;"><use href="#ic-download"/></svg> Backup JSON ডাউনলোড করুন</button>
+          </div>
+          <div class="color-card full">
+            <h3>২. রিস্টোর ব্যাকআপ</h3>
+            <p class="color-hint">পূর্বের কোনো ব্যাকআপ JSON ফাইল আপলোড করে সম্পূর্ণ ওয়েবসাইট আগের অবস্থায় ফিরিয়ে আনুন।</p>
+            <input type="file" id="backup-file-input" accept=".json" style="margin-top:0.8rem;" />
+            <button class="btn-add" style="margin-top:0.8rem; background:var(--accent);" onclick="restoreBackup()"><svg><use href="#ic-upload"/></svg> ফাইল রিস্টোর করুন</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SITE SETTINGS -->
       <section class="panel" id="panel-site">
         <div class="panel-head"><h2>Site Settings</h2><p>ওয়েবসাইটের মূল তথ্য ও SEO সেটিংস</p></div>
         <div class="form-grid">
           <div class="field"><label>ক্লাবের নাম</label><input type="text" id="site-name"></div>
           <div class="field"><label>প্রতিষ্ঠার বছর</label><input type="text" id="site-founded"></div>
           <div class="field full"><label>Browser Tab Title</label><input type="text" id="site-title"></div>
-          <div class="field full"><label>SEO Description (search result এ দেখায়)</label><textarea id="site-desc" rows="2"></textarea></div>
+          <div class="field full"><label>SEO Description (Search Results)</label><textarea id="site-desc" rows="2"></textarea></div>
         </div>
       </section>
 
-      <!-- ── THEME ── -->
+      <!-- THEME -->
       <section class="panel" id="panel-theme">
-        <div class="panel-head"><h2>Theme &amp; Colors</h2><p>ওয়েবসাইটের রং পরিবর্তন করুন</p></div>
+        <div class="panel-head"><h2>Theme &amp; Colors</h2><p>ওয়েবসাইটের কালার স্কিম ও থিম কাস্টমাইজ করুন</p></div>
         <div class="theme-grid">
           <div class="color-card">
             <div class="color-preview" id="prev-primary"></div>
             <div class="field"><label>Primary Color (মূল রং)</label><input type="color" id="theme-primary" class="color-input"></div>
-            <p class="color-hint">Nav, headings, accents এ ব্যবহার হয়</p>
+            <p class="color-hint">Nav, Headings ও হেডার এলিমেন্ট</p>
           </div>
           <div class="color-card">
             <div class="color-preview" id="prev-accent"></div>
-            <div class="field"><label>Accent Color (হাইলাইট রং)</label><input type="color" id="theme-accent" class="color-input"></div>
-            <p class="color-hint">Buttons, badges, links এ ব্যবহার হয়</p>
+            <div class="field"><label>Accent Color (হাইলাইট)</label><input type="color" id="theme-accent" class="color-input"></div>
+            <p class="color-hint">Buttons, Badges ও Links</p>
           </div>
           <div class="color-card">
             <div class="color-preview" id="prev-cream"></div>
             <div class="field"><label>Background Color (পটভূমি)</label><input type="color" id="theme-cream" class="color-input"></div>
-            <p class="color-hint">Page background color</p>
+            <p class="color-hint">Page Background Color</p>
           </div>
         </div>
         <div class="theme-presets">
-          <h3>Quick Presets</h3>
+          <h3>প্রিসেট কালার প্যালেট</h3>
           <div class="preset-row">
             <button class="preset-btn" onclick="applyPreset('#8B5E3C','#C17A3A','#FAF7F2')" style="--pc:#8B5E3C">ক্লাসিক</button>
             <button class="preset-btn" onclick="applyPreset('#1A3A5C','#2D6FA4','#F0F5FA')" style="--pc:#1A3A5C">নীল</button>
@@ -171,76 +223,95 @@
         </div>
       </section>
 
-      <!-- ── NAVIGATION ── -->
+      <!-- NAVIGATION -->
       <section class="panel" id="panel-nav-edit">
         <div class="panel-head">
           <h2>Navigation</h2>
-          <p>Menu র links পরিবর্তন করুন, reorder করুন</p>
+          <p>মেনু বার লিংকস সম্পাদনা ও সিকোয়েন্স সাজান</p>
           <button class="btn-add" onclick="addNavLink()"><svg><use href="#ic-plus"/></svg> নতুন Link</button>
         </div>
         <div class="items-list" id="nav-list"></div>
-        <p class="hint-text">↑↓ বোতাম দিয়ে order পরিবর্তন করুন। CTA = highlighted button style।</p>
       </section>
 
-      <!-- ── HERO ── -->
+      <!-- HERO -->
       <section class="panel" id="panel-hero">
-        <div class="panel-head"><h2>Hero Section</h2><p>ওয়েবসাইটের প্রথম পর্দায় যা দেখা যায়</p></div>
+        <div class="panel-head"><h2>Hero Section</h2><p>ওয়েবসাইটের ব্যানার ও প্রথম স্ক্রিনের তথ্য</p></div>
         <div class="form-grid">
-          <div class="field full"><label>Tagline (উপরের ছোট লেখা)</label><input type="text" id="hero-tagline"></div>
+          <div class="field full"><label>Tagline</label><input type="text" id="hero-tagline"></div>
           <div class="field full"><label>বর্ণনা</label><textarea id="hero-desc" rows="3"></textarea></div>
-          <div class="field"><label>Primary Button লেখা</label><input type="text" id="hero-btn1-label"></div>
+          <div class="field"><label>Primary Button Text</label><input type="text" id="hero-btn1-label"></div>
           <div class="field"><label>Primary Button Link</label><input type="text" id="hero-btn1-href"></div>
-          <div class="field"><label>Secondary Button লেখা</label><input type="text" id="hero-btn2-label"></div>
+          <div class="field"><label>Secondary Button Text</label><input type="text" id="hero-btn2-label"></div>
           <div class="field"><label>Secondary Button Link</label><input type="text" id="hero-btn2-href"></div>
         </div>
       </section>
 
-      <!-- ── ABOUT ── -->
+      <!-- ABOUT -->
       <section class="panel" id="panel-about">
-        <div class="panel-head"><h2>About Section</h2><p>ক্লাবের পরিচয় ও statistics</p></div>
+        <div class="panel-head"><h2>About Section</h2><p>ক্লাবের পরিচয় ও পরিসংখ্যান</p></div>
         <div class="form-grid">
-          <div class="field"><label>Section Label (ছোট উপরের লেখা)</label><input type="text" id="about-label"></div>
+          <div class="field"><label>Section Label</label><input type="text" id="about-label"></div>
           <div class="field"><label>Section Title</label><input type="text" id="about-title"></div>
           <div class="field full"><label>Lead Text</label><textarea id="about-lead" rows="2"></textarea></div>
-          <div class="field full"><label>বিস্তারিত বর্ণনা</label><textarea id="about-body" rows="4"></textarea></div>
+          <div class="field full"><label>বিস্তারিত বিবরণ</label><textarea id="about-body" rows="4"></textarea></div>
         </div>
         <div class="sub-head"><h3>Statistics</h3></div>
         <div id="stats-grid" class="stats-editor"></div>
       </section>
 
-      <!-- ── NEWS ── -->
+      <!-- GALLERY MANAGER -->
+      <section class="panel" id="panel-gallery">
+        <div class="panel-head">
+          <h2>Photo Gallery</h2>
+          <p>গ্যালারি স্ট্রিপে ছবি ও ফটো বিবরণ পরিচালনা করুন</p>
+          <button class="btn-add" onclick="addGalleryItem()"><svg><use href="#ic-plus"/></svg> নতুন ছবি যোগ করুন</button>
+        </div>
+        <div class="items-list" id="gallery-list"></div>
+      </section>
+
+      <!-- NEWS -->
       <section class="panel" id="panel-news">
-        <div class="panel-head"><h2>সংবাদ</h2><p>সংবাদ যোগ, সম্পাদনা বা মুছে ফেলুন</p><button class="btn-add" onclick="addNews()"><svg><use href="#ic-plus"/></svg> নতুন সংবাদ</button></div>
+        <div class="panel-head"><h2>সংবাদ</h2><p>সর্বশেষ খবর ও আপডেট</p><button class="btn-add" onclick="addNews()"><svg><use href="#ic-plus"/></svg> নতুন সংবাদ</button></div>
         <div class="items-list" id="news-list"></div>
       </section>
 
-      <!-- ── EVENTS ── -->
+      <!-- EVENTS -->
       <section class="panel" id="panel-events">
-        <div class="panel-head"><h2>অনুষ্ঠান</h2><p>আসন্ন অনুষ্ঠান পরিচালনা করুন</p><button class="btn-add" onclick="addEvent()"><svg><use href="#ic-plus"/></svg> নতুন অনুষ্ঠান</button></div>
+        <div class="panel-head"><h2>অনুষ্ঠান</h2><p>আসন্ন অনুষ্ঠান তালিকা</p><button class="btn-add" onclick="addEvent()"><svg><use href="#ic-plus"/></svg> নতুন অনুষ্ঠান</button></div>
         <div class="items-list" id="events-list"></div>
       </section>
 
-      <!-- ── INITIATIVES ── -->
+      <!-- INITIATIVES -->
       <section class="panel" id="panel-initiatives">
-        <div class="panel-head"><h2>উদ্যোগ</h2><p>ক্লাবের উদ্যোগসমূহ পরিচালনা করুন</p><button class="btn-add" onclick="addInitiative()"><svg><use href="#ic-plus"/></svg> নতুন উদ্যোগ</button></div>
+        <div class="panel-head"><h2>উদ্যোগ</h2><p>সংগীত ক্লাবের বিশেষ উদ্যোগসমূহ</p><button class="btn-add" onclick="addInitiative()"><svg><use href="#ic-plus"/></svg> নতুন উদ্যোগ</button></div>
         <div class="items-list" id="initiatives-list"></div>
       </section>
 
-      <!-- ── JOIN FORM ── -->
+      <!-- JOIN FORM SETTINGS -->
       <section class="panel" id="panel-join">
-        <div class="panel-head"><h2>Join Form Section</h2><p>"আমাদের সাথে যোগ দিন" section এর content</p></div>
+        <div class="panel-head"><h2>Join Form Settings</h2><p>"আমাদের সাথে যোগ দিন" সেকশনের লেখা</p></div>
         <div class="form-grid">
-          <div class="field full"><label>Section Label (উপরের ছোট লেখা)</label><input type="text" id="join-label"></div>
+          <div class="field full"><label>Section Label</label><input type="text" id="join-label"></div>
           <div class="field full"><label>Title</label><input type="text" id="join-title"></div>
           <div class="field full"><label>বর্ণনা</label><textarea id="join-desc" rows="3"></textarea></div>
-          <div class="field"><label>Submit Button লেখা</label><input type="text" id="join-btn"></div>
-          <div class="field full"><label>Success Message (form submit হলে)</label><textarea id="join-success" rows="2"></textarea></div>
+          <div class="field"><label>Submit Button Text</label><input type="text" id="join-btn"></div>
+          <div class="field full"><label>Success Message</label><textarea id="join-success" rows="2"></textarea></div>
         </div>
       </section>
 
-      <!-- ── CONTACT ── -->
+      <!-- SUBMISSIONS VIEWER -->
+      <section class="panel" id="panel-submissions">
+        <div class="panel-head">
+          <h2>Form Submissions</h2>
+          <p>ওয়েবসাইট থেকে ক্লাবে যোগ দিতে পাঠানো আবেদনপত্রসমূহ</p>
+          <button class="btn-add" onclick="exportSubmissionsCSV()"><svg><use href="#ic-download"/></svg> Export CSV</button>
+        </div>
+        <div class="items-list" id="submissions-list"></div>
+      </section>
+
+      <!-- CONTACT -->
       <section class="panel" id="panel-contact">
-        <div class="panel-head"><h2>যোগাযোগ ও Footer</h2><p>ক্লাবের যোগাযোগ ও সোশ্যাল মিডিয়া</p></div>
+        <div class="panel-head"><h2>যোগাযোগ ও Footer</h2><p>ঠিকানা ও সোশ্যাল মিডিয়া লিংকস</p></div>
         <div class="form-grid">
           <div class="field"><label>ইমেইল</label><input type="text" id="contact-email"></div>
           <div class="field"><label>ফোন</label><input type="text" id="contact-phone"></div>

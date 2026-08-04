@@ -1,18 +1,19 @@
 /* ═══════════════════════════════════════════
-   SOPTOSUR ADMIN — Full Script v2
-   New: Site Settings, Theme, Navigation, Join Form
+   SOPTOSUR ENTERPRISE ADMIN — Script v3
+   Features: Search, Gallery Manager, Submissions, Backup/Restore, Preview
 ═══════════════════════════════════════════ */
 
 const S = { token:'', repo:'', content:null, sha:'', logs:[], saveCb:null };
 const $ = id => document.getElementById(id);
 const titles = {
-  dashboard:'Dashboard', site:'Site Settings', theme:'Theme & Colors',
-  'nav-edit':'Navigation', hero:'Hero Section', about:'About',
+  dashboard:'Dashboard', preview:'Live Preview', backup:'Backup & Restore',
+  site:'Site Settings', theme:'Theme & Colors', 'nav-edit':'Navigation',
+  hero:'Hero Section', about:'About', gallery:'Photo Gallery',
   news:'সংবাদ', events:'অনুষ্ঠান', initiatives:'উদ্যোগ',
-  join:'Join Form', contact:'যোগাযোগ ও Footer'
+  join:'Join Form Settings', submissions:'Form Submissions', contact:'যোগাযোগ & Footer'
 };
 
-/* ─── UTF-8 safe base64 ─── */
+/* UTF-8 safe base64 */
 function b64decode(str) {
   const bin = atob(str.replace(/\n/g,''));
   const bytes = new Uint8Array(bin.length);
@@ -89,7 +90,7 @@ function bootApp() {
 }
 
 /* ══════════════════════════════════════════
-   NAVIGATION
+   NAVIGATION & SECTIONS
 ══════════════════════════════════════════ */
 document.querySelectorAll('.nav-link').forEach(el => {
   el.addEventListener('click', e => { e.preventDefault(); switchSection(el.dataset.section); closeSidebar(); });
@@ -111,12 +112,13 @@ function switchSection(name) {
 function fillAll() {
   const c = S.content;
 
-  // Ensure structure exists (backward compat)
-  c.site   = c.site   || {};
-  c.nav    = c.nav    || { links: [] };
-  c.join   = c.join   || {};
-  c.footer = c.footer || {};
-  c.about  = c.about  || {};
+  c.site        = c.site        || {};
+  c.nav         = c.nav         || { links: [] };
+  c.gallery     = c.gallery     || [];
+  c.submissions = c.submissions || [];
+  c.join        = c.join        || {};
+  c.footer      = c.footer      || {};
+  c.about       = c.about       || {};
 
   // SITE
   $('site-name').value    = c.site.name    || '';
@@ -156,7 +158,11 @@ function fillAll() {
   buildStatsEditor(c.about.stats || []);
 
   // LISTS
-  buildNewsList(); buildEventsList(); buildInitsList();
+  buildGalleryList();
+  buildNewsList();
+  buildEventsList();
+  buildInitsList();
+  buildSubmissionsList();
 
   // JOIN
   $('join-label').value   = c.join.label    || '';
@@ -227,6 +233,163 @@ function delNav(i) {
   toast('Nav link মুছে ফেলা হয়েছে — Save করুন');
 }
 
+/* ── Gallery Manager ── */
+function buildGalleryList() {
+  $('gallery-list').innerHTML = (S.content.gallery || []).map((it,i) => `
+    <div class="item-row">
+      <div class="item-info">
+        <div class="item-title">${esc(it.title)}</div>
+        <div class="item-sub">${esc(it.url)}</div>
+      </div>
+      <div class="item-actions">
+        <button class="btn-icon edit" onclick="editGallery(${i})"><svg><use href="#ic-edit"/></svg></button>
+        <button class="btn-icon del" onclick="delGallery(${i})"><svg><use href="#ic-trash"/></svg></button>
+      </div>
+    </div>`).join('') || '<p class="empty-msg" style="padding:1rem">কোনো ছবি নেই</p>';
+}
+
+function addGalleryItem() {
+  openModal('নতুন গ্যালারি ছবি', galleryFields({}), () => {
+    S.content.gallery.push({ id:'gal-'+Date.now(), ...pickGallery() });
+    buildGalleryList(); closeModal(); toast('ছবি যোগ হয়েছে — Save করুন');
+  });
+}
+function editGallery(i) {
+  openModal('গ্যালারি তথ্য সম্পাদনা', galleryFields(S.content.gallery[i]), () => {
+    S.content.gallery[i] = { ...S.content.gallery[i], ...pickGallery() };
+    buildGalleryList(); closeModal(); toast('ছবি আপডেট হয়েছে — Save করুন');
+  });
+}
+function delGallery(i) {
+  if (!confirm('ছবিটি মুছে ফেলবেন?')) return;
+  S.content.gallery.splice(i, 1);
+  buildGalleryList(); toast('ছবি মুছে ফেলা হয়েছে');
+}
+function galleryFields(it) {
+  return fields([
+    {id:'f-title', label:'ফটো শিরোনাম', val:it.title||'', type:'text'},
+    {id:'f-url',   label:'Image URL (path)', val:it.url||'assets/images/', type:'text'}
+  ]);
+}
+function pickGallery() { return { title:$('f-title').value, url:$('f-url').value }; }
+
+/* ── Form Submissions Viewer ── */
+function buildSubmissionsList() {
+  const subs = S.content.submissions || [];
+  $('submissions-list').innerHTML = subs.map((s, i) => `
+    <div class="submission-card">
+      <div class="sub-meta">
+        <span class="sub-name">${esc(s.name)}</span>
+        <span>${esc(s.date || '')}</span>
+      </div>
+      <div class="sub-details">
+        <span>📧 ${esc(s.email)}</span>
+        <span>🏫 বিভাগ: ${esc(s.dept || 'N/A')}</span>
+        <span class="sub-tag">সংগীত: ${esc(s.interest || 'N/A')}</span>
+      </div>
+    </div>`).join('') || '<p class="empty-msg" style="padding:1rem">কোনো আবেদনপত্র জমা হয়নি</p>';
+}
+
+function exportSubmissionsCSV() {
+  const subs = S.content.submissions || [];
+  if (!subs.length) { toast('কোনো জমা হওয়া আবেদনপত্র নেই', 'err'); return; }
+  let csv = 'Name,Email,Department,Interest,Date\n';
+  subs.forEach(s => {
+    csv += `"${s.name}","${s.email}","${s.dept||''}","${s.interest||''}","${s.date||''}"\n`;
+  });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `saptasur_submissions_${Date.now()}.csv`;
+  a.click();
+  toast('CSV ফাইল এক্সপোর্ট হয়েছে!');
+}
+
+/* ── Backup & Restore ── */
+function downloadBackup() {
+  collectForms();
+  const jsonStr = JSON.stringify(S.content, null, 2);
+  const blob = new Blob([jsonStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `saptasur_content_backup_${Date.now()}.json`;
+  a.click();
+  toast('ব্যাকআপ JSON ফাইল ডাউনলোড হয়েছে!');
+}
+
+function restoreBackup() {
+  const input = $('backup-file-input');
+  if (!input.files || !input.files[0]) { toast('দয়া করে একটি JSON ফাইল নির্বাচন করুন', 'err'); return; }
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      if (!parsed.site || !parsed.news) throw new Error('অবৈধ ব্যাকআপ ফাইল স্ট্রাকচার');
+      S.content = parsed;
+      fillAll();
+      toast('ব্যাকআপ রিস্টোর হয়েছে! লাইভ করতে Save & Deploy ক্লিক করুন।', 'ok');
+    } catch(err) {
+      toast('ফাইল পড়তে ব্যর্থ: ' + err.message, 'err');
+    }
+  };
+  reader.readAsText(input.files[0]);
+}
+
+/* ── Live Preview ── */
+function refreshPreview() {
+  const frame = $('preview-frame');
+  if (frame) frame.src = 'https://soptosur.vercel.app?v=' + Date.now();
+  toast('প্রিভিউ রিফ্রেশ হয়েছে');
+}
+
+/* ── Global Search ── */
+function handleGlobalSearch() {
+  const q = $('global-search').value.trim().toLowerCase();
+  const resEl = $('search-results');
+  if (!q) { resEl.style.display = 'none'; return; }
+
+  const results = [];
+  const c = S.content;
+
+  (c.news || []).forEach(n => {
+    if (n.title.toLowerCase().includes(q) || n.excerpt?.toLowerCase().includes(q)) {
+      results.push({ title: n.title, sec: 'সংবাদ', act: () => switchSection('news') });
+    }
+  });
+  (c.events || []).forEach(e => {
+    if (e.title.toLowerCase().includes(q) || e.location?.toLowerCase().includes(q)) {
+      results.push({ title: e.title, sec: 'অনুষ্ঠান', act: () => switchSection('events') });
+    }
+  });
+  (c.initiatives || []).forEach(i => {
+    if (i.title.toLowerCase().includes(q) || i.desc?.toLowerCase().includes(q)) {
+      results.push({ title: i.title, sec: 'উদ্যোগ', act: () => switchSection('initiatives') });
+    }
+  });
+
+  if (!results.length) {
+    resEl.innerHTML = '<div class="search-item"><span class="search-item-title">কোনো ফলাফল পাওয়া যায়নি</span></div>';
+  } else {
+    resEl.innerHTML = results.map((r, i) => `
+      <div class="search-item" onclick="execSearchResult(${i})">
+        <span class="search-item-title">${esc(r.title)}</span>
+        <span class="search-item-sec">${r.sec}</span>
+      </div>`).join('');
+    window._searchResults = results;
+  }
+  resEl.style.display = 'flex';
+}
+
+function execSearchResult(i) {
+  if (window._searchResults && window._searchResults[i]) {
+    window._searchResults[i].act();
+    $('search-results').style.display = 'none';
+    $('global-search').value = '';
+  }
+}
+
 /* ── News List ── */
 function buildNewsList() {
   $('news-list').innerHTML = (S.content.news || []).map((it,i) => `
@@ -279,6 +442,7 @@ function updateDash() {
   $('dash-news').textContent   = S.content.news?.length   || 0;
   $('dash-events').textContent = S.content.events?.length || 0;
   $('dash-init').textContent   = S.content.initiatives?.length || 0;
+  $('dash-subs').textContent   = S.content.submissions?.length || 0;
 }
 
 /* ══════════════════════════════════════════
@@ -298,7 +462,7 @@ function collectForms() {
   c.site.theme_accent  = $('theme-accent').value;
   c.site.theme_cream   = $('theme-cream').value;
 
-  // Nav — collect inline field values
+  // Nav
   document.querySelectorAll('.nl-label').forEach(el => { c.nav.links[+el.dataset.i].label = el.value; });
   document.querySelectorAll('.nl-href').forEach(el  => { c.nav.links[+el.dataset.i].href  = el.value; });
   document.querySelectorAll('.nl-cta').forEach(el   => { c.nav.links[+el.dataset.i].cta   = el.checked; });
@@ -360,7 +524,7 @@ async function saveToGitHub() {
       method: 'PUT',
       headers: { Authorization:`token ${S.token}`, Accept:'application/vnd.github.v3+json', 'Content-Type':'application/json' },
       body: JSON.stringify({
-        message: `Admin update — ${new Date().toLocaleString('bn-BD')}`,
+        message: `Admin Enterprise Update — ${new Date().toLocaleString('bn-BD')}`,
         content: b64encode(JSON.stringify(S.content, null, 2)),
         sha: S.sha
       })
@@ -466,7 +630,7 @@ function initFields(it) {
 function pickInit() { return { title:$('f-title').value, desc:$('f-desc').value }; }
 
 /* ══════════════════════════════════════════
-   DELETE
+   DELETE HELPER
 ══════════════════════════════════════════ */
 function delItem(type, i) {
   const names = {news:'সংবাদ', events:'অনুষ্ঠান', initiatives:'উদ্যোগ'};
@@ -480,7 +644,7 @@ function delItem(type, i) {
 }
 
 /* ══════════════════════════════════════════
-   MODAL
+   MODAL HELPERS
 ══════════════════════════════════════════ */
 function fields(defs) {
   return defs.map(d => {

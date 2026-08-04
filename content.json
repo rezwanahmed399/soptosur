@@ -37,6 +37,12 @@
       { "number": "৩৫", "label": "পুরস্কার অর্জন" }
     ]
   },
+  "gallery": [
+    { "id": "gal-1", "title": "বার্ষিক সংগীত উৎসব", "url": "assets/images/gallery-1.jpg" },
+    { "id": "gal-2", "title": "রিহার্সাল সেশন", "url": "assets/images/gallery-2.jpg" },
+    { "id": "gal-3", "title": "সুর সন্ধ্যা পরিবেশনা", "url": "assets/images/gallery-3.jpg" },
+    { "id": "gal-4", "title": "যন্ত্রসংগীত কর্মশালা", "url": "assets/images/gallery-4.jpg" }
+  ],
   "news": [
     {
       "id": "news-1",
@@ -128,6 +134,10 @@
     "btn_label": "আবেদন পাঠান",
     "success_msg": "আপনার আবেদন পাঠানো হয়েছে। শীঘ্রই অডিশনের তারিখ জানানো হবে।"
   },
+  "submissions": [
+    { "id": "sub-1", "name": "আরিফুর রহমান", "email": "arif@gmail.com", "dept": "সিএসই", "interest": "vocal", "date": "২০২৬-০৮-০১" },
+    { "id": "sub-2", "name": "নাসরিন সুলতানা", "email": "nasrin@yahoo.com", "dept": "বাংলা", "interest": "guitar", "date": "২০২৬-০৮-০৩" }
+  ],
   "contact": {
     "email": "saptasur@university.edu.bd",
     "phone": "+880 1XXX-XXXXXX",
