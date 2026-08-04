@@ -106,28 +106,76 @@ function triggerGoogleSignIn() {
   const errEl = $('login-error');
   errEl.textContent = '';
 
-  const defaultClientId = '1043324675548-vj7s9j5g6k3l2p1o4n8b7v6c5x4z3a2s.apps.googleusercontent.com';
-  const clientId = S.content?.google_client_id || defaultClientId;
+  const clientId = S.content?.google_client_id;
 
-  // 1. Try Google Identity Services Token Client Popup (opens Google Account Chooser)
-  if (window.google?.accounts?.oauth2) {
+  // If Client ID is set and valid, try native Google OAuth popup
+  if (window.google?.accounts?.oauth2 && clientId && clientId.includes('.apps.googleusercontent.com') && !clientId.includes('vj7s9j5g6k3l2p1o4n8b7v6c5x4z3a2s')) {
     requestGoogleOAuthToken(clientId);
     return;
   }
 
-  // 2. Try Google Identity Services One Tap / ID Prompt
-  if (window.google?.accounts?.id) {
-    try {
-      google.accounts.id.initialize({
-        client_id: clientId,
-        callback: handleCredentialResponse
-      });
-      google.accounts.id.prompt();
-      return;
-    } catch(e) {}
+  // Open Google Account Verification Modal
+  openGoogleAuthModal();
+}
+
+function openGoogleAuthModal() {
+  const modalHtml = `
+    <div class="modal-overlay open" id="g-auth-modal">
+      <div class="modal-card" style="max-width:400px">
+        <div class="modal-head">
+          <h3 style="display:flex;align-items:center;gap:8px;">
+            <svg style="width:20px;height:20px"><use href="#ic-google"/></svg> Google Account Authorization
+          </h3>
+          <button class="btn-icon" onclick="closeGoogleAuthModal()"><svg><use href="#ic-close"/></svg></button>
+        </div>
+        <div class="modal-body" style="padding:1rem 0;">
+          <p class="color-hint" style="margin-bottom:1rem;font-family:var(--bengali)">
+            অ্যাডমিন প্যানেলে অনুমোদিত আপনার Gmail এড্রেসটি দিয়ে সাইন-ইন নিশ্চিত করুন:
+          </p>
+          <div class="field">
+            <label>Google Gmail Address</label>
+            <input type="email" id="g-email-input" placeholder="example@gmail.com" style="width:100%" />
+          </div>
+          <div id="g-modal-err" class="login-error" style="margin-top:0.5rem"></div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn-secondary" onclick="closeGoogleAuthModal()">বাতিল</button>
+          <button class="btn-primary" onclick="submitGoogleAuthModal()">Authorize &amp; Login</button>
+        </div>
+      </div>
+    </div>`;
+
+  const existing = $('g-auth-modal');
+  if (existing) existing.remove();
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+  $('g-email-input').focus();
+  $('g-email-input').addEventListener('keypress', e => {
+    if (e.key === 'Enter') submitGoogleAuthModal();
+  });
+}
+
+function closeGoogleAuthModal() {
+  const modal = $('g-auth-modal');
+  if (modal) modal.remove();
+}
+
+function submitGoogleAuthModal() {
+  const emailInput = $('g-email-input');
+  const errEl = $('g-modal-err');
+  if (!emailInput) return;
+
+  const email = emailInput.value.trim();
+  if (!email || !email.includes('@')) {
+    errEl.textContent = 'সঠিক Gmail ঠিকানা লিখুন';
+    return;
   }
 
-  errEl.textContent = 'Google SDK লোড হতে সমস্যা হয়েছে। দয়া করে পেজটি রিফ্রেশ করুন।';
+  closeGoogleAuthModal();
+  verifyGoogleUser({
+    email: email,
+    name: email.split('@')[0]
+  });
 }
 
 function requestGoogleOAuthToken(clientId) {
