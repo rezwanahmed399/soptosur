@@ -506,64 +506,116 @@
       if (!res.ok) return;
       const c = await res.json();
 
+      // SITE & THEME
+      if (c.site) {
+        if (c.site.title) document.title = c.site.title;
+        if (c.site.description) {
+          const metaDesc = document.querySelector('meta[name="description"]');
+          if (metaDesc) metaDesc.content = c.site.description;
+        }
+        if (c.site.theme_primary) document.documentElement.style.setProperty('--brown', c.site.theme_primary);
+        if (c.site.theme_accent) {
+          document.documentElement.style.setProperty('--brown-light', c.site.theme_accent);
+          document.documentElement.style.setProperty('--accent', c.site.theme_accent);
+        }
+        if (c.site.theme_cream) document.documentElement.style.setProperty('--cream', c.site.theme_cream);
+      }
+
+      // NAVIGATION
+      if (c.nav?.links?.length) {
+        const navContainer = document.getElementById('nav-links');
+        if (navContainer) {
+          navContainer.innerHTML = c.nav.links.map(lk => 
+            `<li><a href="${lk.href}" class="nav-link ${lk.cta ? 'nav-cta' : ''}">${lk.label}</a></li>`
+          ).join('');
+        }
+      }
+
       // HERO
       const heroTagline = document.querySelector('.hero-tagline');
       const heroDesc = document.querySelector('.hero-description');
       const heroBtnPrimary = document.querySelector('#hero-explore-btn');
       const heroBtnGhost = document.querySelector('#hero-about-btn');
-      if (heroTagline) heroTagline.textContent = c.hero.tagline;
-      if (heroDesc) heroDesc.innerHTML = c.hero.description.replace(/,\s*/g, ',<br>');
-      if (heroBtnPrimary) { heroBtnPrimary.textContent = c.hero.btn_primary; heroBtnPrimary.href = c.hero.btn_primary_href; }
-      if (heroBtnGhost) { heroBtnGhost.textContent = c.hero.btn_ghost; heroBtnGhost.href = c.hero.btn_ghost_href; }
+      if (heroTagline && c.hero?.tagline) heroTagline.textContent = c.hero.tagline;
+      if (heroDesc && c.hero?.description) heroDesc.innerHTML = c.hero.description.replace(/,\s*/g, ',<br>');
+      if (heroBtnPrimary && c.hero?.btn_primary) { heroBtnPrimary.textContent = c.hero.btn_primary; heroBtnPrimary.href = c.hero.btn_primary_href; }
+      if (heroBtnGhost && c.hero?.btn_ghost) { heroBtnGhost.textContent = c.hero.btn_ghost; heroBtnGhost.href = c.hero.btn_ghost_href; }
 
       // ABOUT
-      const aboutLead = document.querySelector('.about-lead');
-      const aboutBody = document.querySelectorAll('.about-text p:not(.about-lead)');
-      if (aboutLead) aboutLead.textContent = c.about.lead;
-      if (aboutBody.length) aboutBody[0].textContent = c.about.body;
+      if (c.about) {
+        const aboutLabel = document.querySelector('.about .section-label');
+        const aboutTitle = document.querySelector('.about .section-title');
+        const aboutLead = document.querySelector('.about-lead');
+        const aboutBody = document.querySelectorAll('.about-text p:not(.about-lead)');
+        if (aboutLabel && c.about.label) aboutLabel.textContent = c.about.label;
+        if (aboutTitle && c.about.title) aboutTitle.textContent = c.about.title;
+        if (aboutLead && c.about.lead) aboutLead.textContent = c.about.lead;
+        if (aboutBody.length && c.about.body) aboutBody[0].textContent = c.about.body;
 
-      // STATS
-      const statCards = document.querySelectorAll('.stat-card');
-      c.about.stats.forEach((s, i) => {
-        if (statCards[i]) {
-          statCards[i].querySelector('.stat-number').textContent = s.number;
-          statCards[i].querySelector('.stat-label').textContent = s.label;
-        }
-      });
-
-      // NEWS
-      renderNews(c.news);
-
-      // EVENTS
-      renderEvents(c.events);
-
-      // INITIATIVES
-      renderInitiatives(c.initiatives);
-
-      // CONTACT
-      const emailEls = document.querySelectorAll('.footer-links-group li');
-      if (emailEls.length > 0) {
-        const footerGroups = document.querySelectorAll('.footer-links-group');
-        if (footerGroups[1]) {
-          footerGroups[1].querySelector('ul').innerHTML = `
-            <li><svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> ${c.contact.email}</li>
-            <li><svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.42 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> ${c.contact.phone}</li>
-            <li><svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ${c.contact.address}</li>`;
+        if (c.about.stats) {
+          const statCards = document.querySelectorAll('.stat-card');
+          c.about.stats.forEach((s, i) => {
+            if (statCards[i]) {
+              statCards[i].querySelector('.stat-number').textContent = s.number;
+              statCards[i].querySelector('.stat-label').textContent = s.label;
+            }
+          });
         }
       }
 
-      // SOCIAL LINKS
-      const fb = document.getElementById('footer-facebook');
-      const ig = document.getElementById('footer-instagram');
-      const yt = document.getElementById('footer-youtube');
-      if (fb && c.contact.facebook !== '#') fb.href = c.contact.facebook;
-      if (ig && c.contact.instagram !== '#') ig.href = c.contact.instagram;
-      if (yt && c.contact.youtube !== '#') yt.href = c.contact.youtube;
+      // NEWS
+      if (c.news) renderNews(c.news);
 
-      // FOOTER
-      if (c.footer?.tagline) {
-        const ft = document.querySelector('.footer-tagline');
-        if (ft) ft.textContent = c.footer.tagline;
+      // EVENTS
+      if (c.events) renderEvents(c.events);
+
+      // INITIATIVES
+      if (c.initiatives) renderInitiatives(c.initiatives);
+
+      // JOIN FORM
+      if (c.join) {
+        const joinLabel = document.querySelector('.join .section-label');
+        const joinTitle = document.querySelector('.join-title');
+        const joinDesc = document.querySelector('.join-desc');
+        const joinBtn = document.querySelector('#join-submit-btn');
+        const joinSuccess = document.querySelector('#join-success p');
+        if (joinLabel && c.join.label) joinLabel.textContent = c.join.label;
+        if (joinTitle && c.join.title) joinTitle.textContent = c.join.title;
+        if (joinDesc && c.join.desc) joinDesc.textContent = c.join.desc;
+        if (joinBtn && c.join.btn_label) joinBtn.textContent = c.join.btn_label;
+        if (joinSuccess && c.join.success_msg) joinSuccess.textContent = c.join.success_msg;
+      }
+
+      // CONTACT & FOOTER
+      if (c.contact) {
+        const emailEls = document.querySelectorAll('.footer-links-group li');
+        if (emailEls.length > 0) {
+          const footerGroups = document.querySelectorAll('.footer-links-group');
+          if (footerGroups[1]) {
+            footerGroups[1].querySelector('ul').innerHTML = `
+              <li><svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> ${c.contact.email}</li>
+              <li><svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.42 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> ${c.contact.phone}</li>
+              <li><svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ${c.contact.address}</li>`;
+          }
+        }
+
+        const fb = document.getElementById('footer-facebook');
+        const ig = document.getElementById('footer-instagram');
+        const yt = document.getElementById('footer-youtube');
+        if (fb && c.contact.facebook !== '#') fb.href = c.contact.facebook;
+        if (ig && c.contact.instagram !== '#') ig.href = c.contact.instagram;
+        if (yt && c.contact.youtube !== '#') yt.href = c.contact.youtube;
+      }
+
+      if (c.footer) {
+        if (c.footer.tagline) {
+          const ft = document.querySelector('.footer-tagline');
+          if (ft) ft.textContent = c.footer.tagline;
+        }
+        if (c.footer.copyright) {
+          const fc = document.querySelector('.footer-bottom p:first-child');
+          if (fc) fc.textContent = c.footer.copyright;
+        }
       }
 
     } catch(e) {

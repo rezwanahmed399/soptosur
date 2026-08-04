@@ -11,288 +11,198 @@
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════
-     SVG ICON DEFINITIONS (hidden)
-═══════════════════════════════════════ -->
+<!-- SVG SPRITES -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-  <symbol id="icon-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
-    <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
-  </symbol>
-  <symbol id="icon-hero" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-  </symbol>
-  <symbol id="icon-about" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-  </symbol>
-  <symbol id="icon-news" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/>
-    <line x1="11" y1="6" x2="17" y2="6"/><line x1="11" y1="10" x2="17" y2="10"/><line x1="11" y1="14" x2="17" y2="14"/>
-  </symbol>
-  <symbol id="icon-events" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
-    <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-  </symbol>
-  <symbol id="icon-initiatives" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-  </symbol>
-  <symbol id="icon-contact" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.42 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-  </symbol>
-  <symbol id="icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-    <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-  </symbol>
-  <symbol id="icon-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-    <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
-  </symbol>
-  <symbol id="icon-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-    <polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
-  </symbol>
-  <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-    <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-  </symbol>
-  <symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-  </symbol>
-  <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
-    <path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
-  </symbol>
-  <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-  </symbol>
-  <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-    <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
-  </symbol>
-  <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <polyline points="20 6 9 17 4 12"/>
-  </symbol>
-  <symbol id="icon-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
-  </symbol>
+  <symbol id="ic-dash"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+  <symbol id="ic-site"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+  <symbol id="ic-nav"     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+  <symbol id="ic-hero"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></symbol>
+  <symbol id="ic-about"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></symbol>
+  <symbol id="ic-news"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><line x1="11" y1="6" x2="17" y2="6"/><line x1="11" y1="10" x2="17" y2="10"/><line x1="11" y1="14" x2="17" y2="14"/></symbol>
+  <symbol id="ic-events"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+  <symbol id="ic-init"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+  <symbol id="ic-join"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></symbol>
+  <symbol id="ic-contact" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.42 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6z"/></symbol>
+  <symbol id="ic-theme"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></symbol>
+  <symbol id="ic-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></symbol>
+  <symbol id="ic-logout"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></symbol>
+  <symbol id="ic-save"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol>
+  <symbol id="ic-plus"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+  <symbol id="ic-edit"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/></symbol>
+  <symbol id="ic-trash"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></symbol>
+  <symbol id="ic-close"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+  <symbol id="ic-menu"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+  <symbol id="ic-music"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+  <symbol id="ic-up"      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></symbol>
+  <symbol id="ic-down"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></symbol>
+  <symbol id="ic-check"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
 </svg>
 
-<!-- ═══════════════════════════════════════
-     LOGIN SCREEN
-═══════════════════════════════════════ -->
+<!-- ═══════ LOGIN ═══════ -->
 <div class="login-screen" id="login-screen">
   <div class="login-card">
     <div class="login-brand">
-      <div class="login-icon">
-        <svg><use href="#icon-music"/></svg>
-      </div>
-      <div class="login-brand-text">
-        <h1>সপ্তসুর</h1>
-        <span>Admin Panel</span>
-      </div>
+      <div class="login-icon"><svg><use href="#ic-music"/></svg></div>
+      <div><h1>সপ্তসুর</h1><span>Admin Panel</span></div>
     </div>
     <p class="login-subtitle">GitHub Token দিয়ে login করুন</p>
-
     <div class="login-form">
-      <div class="field">
-        <label>GitHub Personal Access Token</label>
-        <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
-      </div>
-      <div class="field">
-        <label>Repository</label>
-        <input type="text" id="repo-input" value="rezwanahmed399/soptosur" />
-      </div>
+      <div class="field"><label>GitHub Personal Access Token</label><input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"/></div>
+      <div class="field"><label>Repository (owner/repo)</label><input type="text" id="repo-input" value="rezwanahmed399/soptosur"/></div>
       <div id="login-error" class="login-error"></div>
       <button class="btn-primary-full" id="login-btn">Login করুন</button>
-      <p class="login-help">
-        Token নেই? <a href="https://github.com/settings/tokens/new?scopes=repo&description=Soptosur+Admin" target="_blank">এখানে বানান →</a>
-        <br><small>Scope: <code>repo</code> দিতে হবে</small>
-      </p>
+      <p class="login-help">Token নেই? <a href="https://github.com/settings/tokens/new?scopes=repo&description=Soptosur+Admin" target="_blank">এখানে বানান →</a><br><small>Scope: <code>repo</code> দিতে হবে</small></p>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     ADMIN APP
-═══════════════════════════════════════ -->
+<!-- ═══════ APP ═══════ -->
 <div class="app" id="admin-app" style="display:none">
-
-  <!-- Mobile overlay -->
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-top">
       <div class="sidebar-brand">
-        <div class="brand-icon">
-          <svg><use href="#icon-music"/></svg>
-        </div>
-        <div>
-          <p class="brand-name">সপ্তসুর</p>
-          <p class="brand-sub">Admin</p>
-        </div>
+        <div class="brand-icon"><svg><use href="#ic-music"/></svg></div>
+        <div><p class="brand-name">সপ্তসুর</p><p class="brand-sub">Admin</p></div>
       </div>
     </div>
-
     <nav class="sidebar-nav">
-      <a class="nav-link active" data-section="dashboard">
-        <svg class="nav-icon"><use href="#icon-dashboard"/></svg>
-        <span>Dashboard</span>
-      </a>
-      <a class="nav-link" data-section="hero">
-        <svg class="nav-icon"><use href="#icon-hero"/></svg>
-        <span>Hero Section</span>
-      </a>
-      <a class="nav-link" data-section="about">
-        <svg class="nav-icon"><use href="#icon-about"/></svg>
-        <span>About</span>
-      </a>
-      <a class="nav-link" data-section="news">
-        <svg class="nav-icon"><use href="#icon-news"/></svg>
-        <span>সংবাদ</span>
-      </a>
-      <a class="nav-link" data-section="events">
-        <svg class="nav-icon"><use href="#icon-events"/></svg>
-        <span>অনুষ্ঠান</span>
-      </a>
-      <a class="nav-link" data-section="initiatives">
-        <svg class="nav-icon"><use href="#icon-initiatives"/></svg>
-        <span>উদ্যোগ</span>
-      </a>
-      <a class="nav-link" data-section="contact">
-        <svg class="nav-icon"><use href="#icon-contact"/></svg>
-        <span>যোগাযোগ</span>
-      </a>
-    </nav>
+      <p class="nav-group-label">Overview</p>
+      <a class="nav-link active" data-section="dashboard"><svg class="nav-icon"><use href="#ic-dash"/></svg><span>Dashboard</span></a>
 
+      <p class="nav-group-label">Website</p>
+      <a class="nav-link" data-section="site"><svg class="nav-icon"><use href="#ic-site"/></svg><span>Site Settings</span></a>
+      <a class="nav-link" data-section="theme"><svg class="nav-icon"><use href="#ic-theme"/></svg><span>Theme & Colors</span></a>
+      <a class="nav-link" data-section="nav-edit"><svg class="nav-icon"><use href="#ic-nav"/></svg><span>Navigation</span></a>
+
+      <p class="nav-group-label">Content</p>
+      <a class="nav-link" data-section="hero"><svg class="nav-icon"><use href="#ic-hero"/></svg><span>Hero Section</span></a>
+      <a class="nav-link" data-section="about"><svg class="nav-icon"><use href="#ic-about"/></svg><span>About</span></a>
+      <a class="nav-link" data-section="news"><svg class="nav-icon"><use href="#ic-news"/></svg><span>সংবাদ</span></a>
+      <a class="nav-link" data-section="events"><svg class="nav-icon"><use href="#ic-events"/></svg><span>অনুষ্ঠান</span></a>
+      <a class="nav-link" data-section="initiatives"><svg class="nav-icon"><use href="#ic-init"/></svg><span>উদ্যোগ</span></a>
+      <a class="nav-link" data-section="join"><svg class="nav-icon"><use href="#ic-join"/></svg><span>Join Form</span></a>
+      <a class="nav-link" data-section="contact"><svg class="nav-icon"><use href="#ic-contact"/></svg><span>যোগাযোগ</span></a>
+    </nav>
     <div class="sidebar-bottom">
-      <a href="https://soptosur.vercel.app" target="_blank" class="sidebar-external">
-        <svg class="nav-icon"><use href="#icon-external"/></svg>
-        <span>ওয়েবসাইট দেখুন</span>
-      </a>
-      <button class="sidebar-logout" id="logout-btn">
-        <svg class="nav-icon"><use href="#icon-logout"/></svg>
-        <span>Logout</span>
-      </button>
+      <a href="https://soptosur.vercel.app" target="_blank" class="sidebar-external"><svg class="nav-icon"><use href="#ic-external"/></svg><span>ওয়েবসাইট দেখুন</span></a>
+      <button class="sidebar-logout" id="logout-btn"><svg class="nav-icon"><use href="#ic-logout"/></svg><span>Logout</span></button>
     </div>
   </aside>
 
   <!-- MAIN -->
   <div class="main-wrap">
-
-    <!-- TOPBAR -->
     <header class="topbar">
-      <button class="topbar-menu" id="menu-toggle">
-        <svg><use href="#icon-menu"/></svg>
-      </button>
+      <button class="topbar-menu" id="menu-toggle"><svg><use href="#ic-menu"/></svg></button>
       <h2 class="topbar-title" id="topbar-title">Dashboard</h2>
       <div class="topbar-actions">
         <span class="save-status" id="save-status"></span>
         <button class="btn-save" id="save-btn" onclick="saveToGitHub()">
-          <svg><use href="#icon-save"/></svg>
-          <span>Save &amp; Deploy</span>
+          <svg><use href="#ic-save"/></svg><span>Save &amp; Deploy</span>
         </button>
       </div>
     </header>
 
-    <!-- CONTENT AREA -->
     <main class="content">
 
       <!-- ── DASHBOARD ── -->
       <section class="panel active" id="panel-dashboard">
         <div class="stat-row">
-          <div class="stat-box" onclick="switchSection('news')">
-            <svg class="stat-icon"><use href="#icon-news"/></svg>
-            <div>
-              <p class="stat-num" id="dash-news">0</p>
-              <p class="stat-lbl">সংবাদ</p>
-            </div>
-          </div>
-          <div class="stat-box" onclick="switchSection('events')">
-            <svg class="stat-icon"><use href="#icon-events"/></svg>
-            <div>
-              <p class="stat-num" id="dash-events">0</p>
-              <p class="stat-lbl">অনুষ্ঠান</p>
-            </div>
-          </div>
-          <div class="stat-box" onclick="switchSection('initiatives')">
-            <svg class="stat-icon"><use href="#icon-initiatives"/></svg>
-            <div>
-              <p class="stat-num" id="dash-init">0</p>
-              <p class="stat-lbl">উদ্যোগ</p>
-            </div>
-          </div>
-          <div class="stat-box">
-            <svg class="stat-icon" style="color:var(--green)"><use href="#icon-check"/></svg>
-            <div>
-              <p class="stat-num" style="color:var(--green)">Live</p>
-              <p class="stat-lbl">Vercel</p>
-            </div>
-          </div>
+          <div class="stat-box" onclick="switchSection('news')"><svg class="stat-icon"><use href="#ic-news"/></svg><div><p class="stat-num" id="dash-news">0</p><p class="stat-lbl">সংবাদ</p></div></div>
+          <div class="stat-box" onclick="switchSection('events')"><svg class="stat-icon"><use href="#ic-events"/></svg><div><p class="stat-num" id="dash-events">0</p><p class="stat-lbl">অনুষ্ঠান</p></div></div>
+          <div class="stat-box" onclick="switchSection('initiatives')"><svg class="stat-icon"><use href="#ic-init"/></svg><div><p class="stat-num" id="dash-init">0</p><p class="stat-lbl">উদ্যোগ</p></div></div>
+          <div class="stat-box"><svg class="stat-icon" style="color:var(--green)"><use href="#ic-check"/></svg><div><p class="stat-num" style="color:var(--green)">Live</p><p class="stat-lbl">Vercel</p></div></div>
+        </div>
+        <div class="quick-links">
+          <button class="quick-btn" onclick="switchSection('site')"><svg><use href="#ic-site"/></svg>Site Settings</button>
+          <button class="quick-btn" onclick="switchSection('theme')"><svg><use href="#ic-theme"/></svg>Theme Colors</button>
+          <button class="quick-btn" onclick="switchSection('nav-edit')"><svg><use href="#ic-nav"/></svg>Navigation</button>
+          <button class="quick-btn" onclick="switchSection('join')"><svg><use href="#ic-join"/></svg>Join Form</button>
         </div>
         <div class="info-card">
           <h3>কীভাবে ব্যবহার করবেন</h3>
-          <ol>
-            <li>বাঁ দিকের menu থেকে section বেছে নিন</li>
-            <li>Content পরিবর্তন করুন</li>
-            <li>উপরে <strong>Save &amp; Deploy</strong> বোতামে ক্লিক করুন</li>
-            <li>৩০ সেকেন্ডে ওয়েবসাইট আপডেট হয়ে যাবে!</li>
-          </ol>
+          <ol><li>বাঁ দিকের menu থেকে section বেছে নিন</li><li>Content পরিবর্তন করুন</li><li><strong>Save &amp; Deploy</strong> বোতামে ক্লিক করুন</li><li>৩০ সেকেন্ডে ওয়েবসাইট আপডেট!</li></ol>
         </div>
-        <div class="info-card" id="deploy-log">
-          <h3>Deploy ইতিহাস</h3>
-          <p class="empty-msg">এখনো কোনো deploy হয়নি</p>
+        <div class="info-card" id="deploy-log"><h3>Deploy ইতিহাস</h3><p class="empty-msg">এখনো কোনো deploy হয়নি</p></div>
+      </section>
+
+      <!-- ── SITE SETTINGS ── -->
+      <section class="panel" id="panel-site">
+        <div class="panel-head"><h2>Site Settings</h2><p>ওয়েবসাইটের মূল তথ্য ও SEO সেটিংস</p></div>
+        <div class="form-grid">
+          <div class="field"><label>ক্লাবের নাম</label><input type="text" id="site-name"></div>
+          <div class="field"><label>প্রতিষ্ঠার বছর</label><input type="text" id="site-founded"></div>
+          <div class="field full"><label>Browser Tab Title</label><input type="text" id="site-title"></div>
+          <div class="field full"><label>SEO Description (search result এ দেখায়)</label><textarea id="site-desc" rows="2"></textarea></div>
         </div>
+      </section>
+
+      <!-- ── THEME ── -->
+      <section class="panel" id="panel-theme">
+        <div class="panel-head"><h2>Theme &amp; Colors</h2><p>ওয়েবসাইটের রং পরিবর্তন করুন</p></div>
+        <div class="theme-grid">
+          <div class="color-card">
+            <div class="color-preview" id="prev-primary"></div>
+            <div class="field"><label>Primary Color (মূল রং)</label><input type="color" id="theme-primary" class="color-input"></div>
+            <p class="color-hint">Nav, headings, accents এ ব্যবহার হয়</p>
+          </div>
+          <div class="color-card">
+            <div class="color-preview" id="prev-accent"></div>
+            <div class="field"><label>Accent Color (হাইলাইট রং)</label><input type="color" id="theme-accent" class="color-input"></div>
+            <p class="color-hint">Buttons, badges, links এ ব্যবহার হয়</p>
+          </div>
+          <div class="color-card">
+            <div class="color-preview" id="prev-cream"></div>
+            <div class="field"><label>Background Color (পটভূমি)</label><input type="color" id="theme-cream" class="color-input"></div>
+            <p class="color-hint">Page background color</p>
+          </div>
+        </div>
+        <div class="theme-presets">
+          <h3>Quick Presets</h3>
+          <div class="preset-row">
+            <button class="preset-btn" onclick="applyPreset('#8B5E3C','#C17A3A','#FAF7F2')" style="--pc:#8B5E3C">ক্লাসিক</button>
+            <button class="preset-btn" onclick="applyPreset('#1A3A5C','#2D6FA4','#F0F5FA')" style="--pc:#1A3A5C">নীল</button>
+            <button class="preset-btn" onclick="applyPreset('#2D5A27','#4A9B3F','#F0FAF0')" style="--pc:#2D5A27">সবুজ</button>
+            <button class="preset-btn" onclick="applyPreset('#5C1A3A','#A43D6F','#FAF0F5')" style="--pc:#5C1A3A">গোলাপী</button>
+            <button class="preset-btn" onclick="applyPreset('#1C1C2E','#6C63FF','#F5F5FF')" style="--pc:#1C1C2E">বেগুনি</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── NAVIGATION ── -->
+      <section class="panel" id="panel-nav-edit">
+        <div class="panel-head">
+          <h2>Navigation</h2>
+          <p>Menu র links পরিবর্তন করুন, reorder করুন</p>
+          <button class="btn-add" onclick="addNavLink()"><svg><use href="#ic-plus"/></svg> নতুন Link</button>
+        </div>
+        <div class="items-list" id="nav-list"></div>
+        <p class="hint-text">↑↓ বোতাম দিয়ে order পরিবর্তন করুন। CTA = highlighted button style।</p>
       </section>
 
       <!-- ── HERO ── -->
       <section class="panel" id="panel-hero">
-        <div class="panel-head">
-          <h2>Hero Section</h2>
-          <p>ওয়েবসাইটের প্রথম পর্দায় যা দেখা যায়</p>
-        </div>
+        <div class="panel-head"><h2>Hero Section</h2><p>ওয়েবসাইটের প্রথম পর্দায় যা দেখা যায়</p></div>
         <div class="form-grid">
-          <div class="field full">
-            <label>Tagline (উপরের ছোট লেখা)</label>
-            <input type="text" id="hero-tagline">
-          </div>
-          <div class="field full">
-            <label>বর্ণনা</label>
-            <textarea id="hero-desc" rows="3"></textarea>
-          </div>
-          <div class="field">
-            <label>Primary Button লেখা</label>
-            <input type="text" id="hero-btn1-label">
-          </div>
-          <div class="field">
-            <label>Primary Button Link</label>
-            <input type="text" id="hero-btn1-href">
-          </div>
-          <div class="field">
-            <label>Secondary Button লেখা</label>
-            <input type="text" id="hero-btn2-label">
-          </div>
-          <div class="field">
-            <label>Secondary Button Link</label>
-            <input type="text" id="hero-btn2-href">
-          </div>
+          <div class="field full"><label>Tagline (উপরের ছোট লেখা)</label><input type="text" id="hero-tagline"></div>
+          <div class="field full"><label>বর্ণনা</label><textarea id="hero-desc" rows="3"></textarea></div>
+          <div class="field"><label>Primary Button লেখা</label><input type="text" id="hero-btn1-label"></div>
+          <div class="field"><label>Primary Button Link</label><input type="text" id="hero-btn1-href"></div>
+          <div class="field"><label>Secondary Button লেখা</label><input type="text" id="hero-btn2-label"></div>
+          <div class="field"><label>Secondary Button Link</label><input type="text" id="hero-btn2-href"></div>
         </div>
       </section>
 
       <!-- ── ABOUT ── -->
       <section class="panel" id="panel-about">
-        <div class="panel-head">
-          <h2>About Section</h2>
-          <p>ক্লাবের পরিচয় ও statistics</p>
-        </div>
+        <div class="panel-head"><h2>About Section</h2><p>ক্লাবের পরিচয় ও statistics</p></div>
         <div class="form-grid">
-          <div class="field full">
-            <label>Lead Text (প্রথম বড় বাক্য)</label>
-            <textarea id="about-lead" rows="2"></textarea>
-          </div>
-          <div class="field full">
-            <label>বিস্তারিত বর্ণনা</label>
-            <textarea id="about-body" rows="4"></textarea>
-          </div>
+          <div class="field"><label>Section Label (ছোট উপরের লেখা)</label><input type="text" id="about-label"></div>
+          <div class="field"><label>Section Title</label><input type="text" id="about-title"></div>
+          <div class="field full"><label>Lead Text</label><textarea id="about-lead" rows="2"></textarea></div>
+          <div class="field full"><label>বিস্তারিত বর্ণনা</label><textarea id="about-body" rows="4"></textarea></div>
         </div>
         <div class="sub-head"><h3>Statistics</h3></div>
         <div id="stats-grid" class="stats-editor"></div>
@@ -300,75 +210,46 @@
 
       <!-- ── NEWS ── -->
       <section class="panel" id="panel-news">
-        <div class="panel-head">
-          <h2>সংবাদ</h2>
-          <p>সংবাদ যোগ, সম্পাদনা বা মুছে ফেলুন</p>
-          <button class="btn-add" onclick="addNews()">
-            <svg><use href="#icon-plus"/></svg> নতুন সংবাদ
-          </button>
-        </div>
+        <div class="panel-head"><h2>সংবাদ</h2><p>সংবাদ যোগ, সম্পাদনা বা মুছে ফেলুন</p><button class="btn-add" onclick="addNews()"><svg><use href="#ic-plus"/></svg> নতুন সংবাদ</button></div>
         <div class="items-list" id="news-list"></div>
       </section>
 
       <!-- ── EVENTS ── -->
       <section class="panel" id="panel-events">
-        <div class="panel-head">
-          <h2>অনুষ্ঠান</h2>
-          <p>আসন্ন অনুষ্ঠান পরিচালনা করুন</p>
-          <button class="btn-add" onclick="addEvent()">
-            <svg><use href="#icon-plus"/></svg> নতুন অনুষ্ঠান
-          </button>
-        </div>
+        <div class="panel-head"><h2>অনুষ্ঠান</h2><p>আসন্ন অনুষ্ঠান পরিচালনা করুন</p><button class="btn-add" onclick="addEvent()"><svg><use href="#ic-plus"/></svg> নতুন অনুষ্ঠান</button></div>
         <div class="items-list" id="events-list"></div>
       </section>
 
       <!-- ── INITIATIVES ── -->
       <section class="panel" id="panel-initiatives">
-        <div class="panel-head">
-          <h2>উদ্যোগ</h2>
-          <p>ক্লাবের উদ্যোগসমূহ পরিচালনা করুন</p>
-          <button class="btn-add" onclick="addInitiative()">
-            <svg><use href="#icon-plus"/></svg> নতুন উদ্যোগ
-          </button>
-        </div>
+        <div class="panel-head"><h2>উদ্যোগ</h2><p>ক্লাবের উদ্যোগসমূহ পরিচালনা করুন</p><button class="btn-add" onclick="addInitiative()"><svg><use href="#ic-plus"/></svg> নতুন উদ্যোগ</button></div>
         <div class="items-list" id="initiatives-list"></div>
+      </section>
+
+      <!-- ── JOIN FORM ── -->
+      <section class="panel" id="panel-join">
+        <div class="panel-head"><h2>Join Form Section</h2><p>"আমাদের সাথে যোগ দিন" section এর content</p></div>
+        <div class="form-grid">
+          <div class="field full"><label>Section Label (উপরের ছোট লেখা)</label><input type="text" id="join-label"></div>
+          <div class="field full"><label>Title</label><input type="text" id="join-title"></div>
+          <div class="field full"><label>বর্ণনা</label><textarea id="join-desc" rows="3"></textarea></div>
+          <div class="field"><label>Submit Button লেখা</label><input type="text" id="join-btn"></div>
+          <div class="field full"><label>Success Message (form submit হলে)</label><textarea id="join-success" rows="2"></textarea></div>
+        </div>
       </section>
 
       <!-- ── CONTACT ── -->
       <section class="panel" id="panel-contact">
-        <div class="panel-head">
-          <h2>যোগাযোগ তথ্য</h2>
-          <p>ক্লাবের যোগাযোগ ও সোশ্যাল মিডিয়া লিঙ্ক</p>
-        </div>
+        <div class="panel-head"><h2>যোগাযোগ ও Footer</h2><p>ক্লাবের যোগাযোগ ও সোশ্যাল মিডিয়া</p></div>
         <div class="form-grid">
-          <div class="field">
-            <label>ইমেইল</label>
-            <input type="text" id="contact-email">
-          </div>
-          <div class="field">
-            <label>ফোন</label>
-            <input type="text" id="contact-phone">
-          </div>
-          <div class="field full">
-            <label>ঠিকানা</label>
-            <input type="text" id="contact-address">
-          </div>
-          <div class="field">
-            <label>Facebook URL</label>
-            <input type="text" id="contact-facebook">
-          </div>
-          <div class="field">
-            <label>Instagram URL</label>
-            <input type="text" id="contact-instagram">
-          </div>
-          <div class="field">
-            <label>YouTube URL</label>
-            <input type="text" id="contact-youtube">
-          </div>
-          <div class="field full">
-            <label>Footer Tagline</label>
-            <input type="text" id="footer-tagline">
-          </div>
+          <div class="field"><label>ইমেইল</label><input type="text" id="contact-email"></div>
+          <div class="field"><label>ফোন</label><input type="text" id="contact-phone"></div>
+          <div class="field full"><label>ঠিকানা</label><input type="text" id="contact-address"></div>
+          <div class="field"><label>Facebook URL</label><input type="text" id="contact-facebook"></div>
+          <div class="field"><label>Instagram URL</label><input type="text" id="contact-instagram"></div>
+          <div class="field"><label>YouTube URL</label><input type="text" id="contact-youtube"></div>
+          <div class="field full"><label>Footer Tagline</label><input type="text" id="footer-tagline"></div>
+          <div class="field full"><label>Footer Copyright</label><input type="text" id="footer-copyright"></div>
         </div>
       </section>
 
@@ -376,26 +257,15 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     MODAL
-═══════════════════════════════════════ -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modal-overlay" style="display:none">
   <div class="modal">
-    <div class="modal-head">
-      <h3 id="modal-title"></h3>
-      <button class="modal-close-btn" onclick="closeModal()">
-        <svg><use href="#icon-close"/></svg>
-      </button>
-    </div>
+    <div class="modal-head"><h3 id="modal-title"></h3><button class="modal-close-btn" onclick="closeModal()"><svg><use href="#ic-close"/></svg></button></div>
     <div class="modal-body" id="modal-body"></div>
-    <div class="modal-foot">
-      <button class="btn-cancel" onclick="closeModal()">বাতিল</button>
-      <button class="btn-confirm" id="modal-confirm">সংরক্ষণ করুন</button>
-    </div>
+    <div class="modal-foot"><button class="btn-cancel" onclick="closeModal()">বাতিল</button><button class="btn-confirm" id="modal-confirm">সংরক্ষণ করুন</button></div>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast" style="display:none"></div>
 
 <script src="script.js"></script>
