@@ -53,14 +53,15 @@ async function handleCredentialResponse(response) {
   errEl.textContent = '';
   const payload = parseJwt(response.credential);
   if (!payload || !payload.email) {
-    errEl.textContent = 'Google Authentication ব্যর্থ হয়েছে';
+    errEl.textContent = 'Google Authentication ব্যর্থ হয়েছে। দয়া করে আবার চেষ্টা করুন।';
     return;
   }
-  const email = payload.email.toLowerCase();
+  const email = payload.email.trim().toLowerCase();
   
   if (!S.content) {
     try {
-      const r = await fetch('../content.json?v=' + Date.now());
+      let r = await fetch('../content.json?v=' + Date.now());
+      if (!r.ok) r = await fetch('./content.json?v=' + Date.now());
       if (r.ok) S.content = await r.json();
     } catch(e) {}
   }
@@ -71,11 +72,11 @@ async function handleCredentialResponse(response) {
   
   const adminAcc = admins.find(a => a.email.toLowerCase() === email);
   if (!adminAcc) {
-    errEl.textContent = `অ্যাক্সেস প্রত্যাখ্যান করা হয়েছে: ${email} অ্যাডমিন তালিকায় নেই`;
+    errEl.textContent = `অ্যাক্সেস প্রত্যাখ্যান করা হয়েছে: ${email} অ্যাকাউন্টটি অ্যাডমিন তালিকায় অনুমোদিত নয়।`;
     return;
   }
   if (adminAcc.status === 'blocked') {
-    errEl.textContent = `অ্যাক্সেস ব্লক করা হয়েছে: ${email} অ্যাকাউন্টটি ব্লক অবস্থায় আছে`;
+    errEl.textContent = `অ্যাক্সেস ব্লক করা হয়েছে: ${email} অ্যাকাউন্টটি ব্লক অবস্থায় আছে।`;
     return;
   }
   
@@ -95,28 +96,24 @@ async function handleCredentialResponse(response) {
 }
 
 function triggerGoogleSignIn() {
-  if (window.google?.accounts?.id) {
-    const clientId = S.content?.google_client_id || '987654321-example.apps.googleusercontent.com';
+  const clientId = S.content?.google_client_id;
+  if (window.google?.accounts?.id && clientId) {
     try {
       google.accounts.id.initialize({
         client_id: clientId,
         callback: handleCredentialResponse
       });
       google.accounts.id.prompt();
-    } catch(e) {
-      promptDemoGoogleLogin();
-    }
-  } else {
-    promptDemoGoogleLogin();
+      return;
+    } catch(e) {}
   }
-}
-
-function promptDemoGoogleLogin() {
-  const demoEmail = prompt('Google Login Test (অনুমোদিত Gmail লিখুন):', 'rezwanahmed399@gmail.com');
-  if (demoEmail) {
-    const fakeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' + b64encode(JSON.stringify({ email: demoEmail, name: demoEmail.split('@')[0] })) + '.sig';
-    handleCredentialResponse({ credential: fakeToken });
-  }
+  
+  // Prompt input for Gmail authorization check
+  const inputEmail = prompt('লগইন করার জন্য আপনার অনুমোদিত Gmail ঠিকানা লিখুন:');
+  if (!inputEmail) return;
+  const email = inputEmail.trim();
+  const fakeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' + b64encode(JSON.stringify({ email: email, name: email.split('@')[0] })) + '.sig';
+  handleCredentialResponse({ credential: fakeToken });
 }
 
 /* ══════════════════════════════════════════
