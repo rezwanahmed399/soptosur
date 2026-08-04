@@ -48,16 +48,16 @@ function switchLoginTab(mode) {
   if (activeSec) activeSec.style.display = 'block';
 }
 
-async function handleCredentialResponse(response) {
+async function verifyGoogleUser(googleProfile) {
   const errEl = $('login-error');
   errEl.textContent = '';
-  const payload = parseJwt(response.credential);
-  if (!payload || !payload.email) {
-    errEl.textContent = 'Google Authentication ব্যর্থ হয়েছে। দয়া করে আবার চেষ্টা করুন।';
+  if (!googleProfile || !googleProfile.email) {
+    errEl.textContent = 'Google সাইন-ইন থেকে কোনো ইমেইল পাওয়া যায়নি।';
     return;
   }
-  const email = payload.email.trim().toLowerCase();
-  
+  const email = googleProfile.email.trim().toLowerCase();
+
+  // Load content.json if not already in state
   if (!S.content) {
     try {
       let r = await fetch('../content.json?v=' + Date.now());
@@ -65,55 +65,95 @@ async function handleCredentialResponse(response) {
       if (r.ok) S.content = await r.json();
     } catch(e) {}
   }
-  
+
   const admins = S.content?.admins || [
     { email: 'rezwanahmed399@gmail.com', role: 'Super Admin', status: 'active' }
   ];
-  
+
   const adminAcc = admins.find(a => a.email.toLowerCase() === email);
   if (!adminAcc) {
-    errEl.textContent = `অ্যাক্সেস প্রত্যাখ্যান করা হয়েছে: ${email} অ্যাকাউন্টটি অ্যাডমিন তালিকায় অনুমোদিত নয়।`;
+    errEl.textContent = `অ্যাক্সেস প্রত্যাখ্যান করা হয়েছে: (${email}) অ্যাকাউন্টটি অ্যাডমিন তালিকায় অনুমোদিত নয়।`;
     return;
   }
   if (adminAcc.status === 'blocked') {
-    errEl.textContent = `অ্যাক্সেস ব্লক করা হয়েছে: ${email} অ্যাকাউন্টটি ব্লক অবস্থায় আছে।`;
+    errEl.textContent = `অ্যাক্সেস ব্লক করা হয়েছে: (${email}) অ্যাকাউন্টটি ব্লক অবস্থায় আছে।`;
     return;
   }
-  
-  S.user = payload;
-  localStorage.setItem('adm_google_user', JSON.stringify(payload));
-  
+
+  S.user = googleProfile;
+  localStorage.setItem('adm_google_user', JSON.stringify(googleProfile));
+
   const rep = localStorage.getItem('adm_rep') || 'rezwanahmed399/soptosur';
   const tok = localStorage.getItem('adm_tok') || '';
   S.repo = rep;
   S.token = tok;
-  
+
   if (tok) {
     try { await tryLogin(tok, rep); } catch(e) {}
   }
   bootApp();
-  toast(`স্বাগতম ${payload.name || email}!`, 'ok');
+  toast(`স্বাগতম ${googleProfile.name || email}!`, 'ok');
+}
+
+function handleCredentialResponse(response) {
+  const payload = parseJwt(response.credential);
+  if (payload) {
+    verifyGoogleUser(payload);
+  }
 }
 
 function triggerGoogleSignIn() {
+  const errEl = $('login-error');
+  errEl.textContent = '';
+
   const clientId = S.content?.google_client_id;
+
+  // 1. If Google Identity Services ID SDK is available and Client ID is configured
   if (window.google?.accounts?.id && clientId) {
     try {
       google.accounts.id.initialize({
         client_id: clientId,
         callback: handleCredentialResponse
       });
-      google.accounts.id.prompt();
+      google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+          requestGoogleOAuthToken(clientId);
+        }
+      });
       return;
     } catch(e) {}
   }
-  
-  // Prompt input for Gmail authorization check
-  const inputEmail = prompt('লগইন করার জন্য আপনার অনুমোদিত Gmail ঠিকানা লিখুন:');
-  if (!inputEmail) return;
-  const email = inputEmail.trim();
-  const fakeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' + b64encode(JSON.stringify({ email: email, name: email.split('@')[0] })) + '.sig';
-  handleCredentialResponse({ credential: fakeToken });
+
+  // 2. If OAuth token client is available and Client ID is configured
+  if (window.google?.accounts?.oauth2 && clientId) {
+    requestGoogleOAuthToken(clientId);
+    return;
+  }
+
+  // 3. If Client ID is missing or not configured
+  errEl.innerHTML = 'Google OAuth Client ID কনফিগার করা হয়নি।<br><small style="color:var(--text2)">দয়া করে Token Login দিয়ে প্রবেশ করে "অ্যাডমিন অ্যাক্সেস" সেকশনে আপনার Client ID যোগ করুন।</small>';
+}
+
+function requestGoogleOAuthToken(clientId) {
+  if (!window.google?.accounts?.oauth2) return;
+  const client = google.accounts.oauth2.initTokenClient({
+    client_id: clientId,
+    scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
+    callback: async (tokenResponse) => {
+      if (tokenResponse.access_token) {
+        try {
+          const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+            headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
+          });
+          const profile = await res.json();
+          verifyGoogleUser(profile);
+        } catch(e) {
+          $('login-error').textContent = 'Google অ্যাকাউন্ট যাচাই করতে ব্যর্থ হয়েছে।';
+        }
+      }
+    }
+  });
+  client.requestAccessToken();
 }
 
 /* ══════════════════════════════════════════
