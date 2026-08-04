@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="সপ্তসুর — বিশ্ববিদ্যালয়ের সংগীত ক্লাব। সর্বশেষ সংবাদ, উদ্যোগ ও সংগীত অনুষ্ঠানের বিস্তারিত।" />
+  <title>সপ্তসুর | সংগীত ক্লাব</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600&family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ====== NAVIGATION ====== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-container">
+      <a href="#hero" class="nav-logo" id="nav-logo">
+        <img src="assets/images/saptasur-logo.svg" alt="সপ্তসুর" class="logo-img" />
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="মেনু খুলুন">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about" class="nav-link">আমাদের সম্পর্কে</a></li>
+        <li><a href="#news" class="nav-link">সংবাদ</a></li>
+        <li><a href="#initiatives" class="nav-link">উদ্যোগ</a></li>
+        <li><a href="#events" class="nav-link">অনুষ্ঠান</a></li>
+        <li><a href="#contact" class="nav-link nav-cta">যোগ দিন</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-content">
+      <p class="hero-tagline">বিশ্ববিদ্যালয় সংগীত ক্লাব</p>
+      <h1 class="hero-title">
+        <img src="assets/images/saptasur-logo.svg" alt="সপ্তসুর" class="hero-logo-img" />
+      </h1>
+      <p class="hero-description">
+        যেখানে সুর হয় আত্মার ভাষা, তাল হয় হৃদয়ের স্পন্দন, <br>এবং প্রতিটি সংগীত হয় একটি নতুন অনুভূতির জন্ম।
+      </p>
+      <div class="hero-actions">
+        <a href="#news" class="btn btn-primary" id="hero-explore-btn">সর্বশেষ সংবাদ</a>
+        <a href="#about" class="btn btn-ghost" id="hero-about-btn">আমাদের জানুন</a>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>নিচে স্ক্রোল করুন</span>
+    </div>
+    <!-- Decorative botanical SVG -->
+    <div class="hero-botanical hero-botanical-left" aria-hidden="true">
+      <svg viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 280 C80 200 40 160 20 80" stroke="#8B5E3C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="55" cy="130" rx="20" ry="32" fill="none" stroke="#8B5E3C" stroke-width="1" transform="rotate(-30 55 130)"/>
+        <ellipse cx="70" cy="90" rx="16" ry="26" fill="none" stroke="#8B5E3C" stroke-width="1" transform="rotate(-10 70 90)"/>
+        <ellipse cx="40" cy="170" rx="18" ry="28" fill="none" stroke="#8B5E3C" stroke-width="1" transform="rotate(-50 40 170)"/>
+        <path d="M55 130 L45 115 M70 90 L62 78 M40 170 L28 158" stroke="#8B5E3C" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M55 130 L72 120 M70 90 L85 82 M40 170 L57 163" stroke="#8B5E3C" stroke-width="0.8" stroke-linecap="round"/>
+        <ellipse cx="30" cy="210" rx="14" ry="22" fill="none" stroke="#8B5E3C" stroke-width="1" transform="rotate(-60 30 210)"/>
+        <path d="M30 210 L18 200 M30 210 L44 204" stroke="#8B5E3C" stroke-width="0.8" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="hero-botanical hero-botanical-right" aria-hidden="true">
+      <svg viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 280 C120 200 160 160 180 80" stroke="#8B5E3C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="145" cy="130" rx="20" ry="32" fill="none" stroke="#8B5E3C" stroke-width="1" transform="rotate(30 145 130)"/>
+        <ellipse cx="130" cy="90" rx="16" ry="26" fill="none" stroke="#8B5E3C" stroke-width="1" transform="rotate(10 130 90)"/>
+        <ellipse cx="160" cy="170" rx="18" ry="28" fill="none" stroke="#8B5E3C" stroke-width="1" transform="rotate(50 160 170)"/>
+        <path d="M145 130 L155 115 M130 90 L138 78 M160 170 L172 158" stroke="#8B5E3C" stroke-width="0.8" stroke-linecap="round"/>
+        <path d="M145 130 L128 120 M130 90 L115 82 M160 170 L143 163" stroke="#8B5E3C" stroke-width="0.8" stroke-linecap="round"/>
+        <ellipse cx="170" cy="210" rx="14" ry="22" fill="none" stroke="#8B5E3C" stroke-width="1" transform="rotate(60 170 210)"/>
+        <path d="M170 210 L182 200 M170 210 L156 204" stroke="#8B5E3C" stroke-width="0.8" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ====== ABOUT ====== -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">আমাদের পরিচয়</span>
+        <h2 class="section-title">সপ্তসুর সংগীত ক্লাব</h2>
+        <div class="section-divider">
+          <svg viewBox="0 0 80 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 6 Q20 0 40 6 Q60 12 80 6" stroke="#8B5E3C" stroke-width="1" fill="none"/>
+          </svg>
+        </div>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="about-lead">সপ্তসুর হলো সুরের এক নিভৃত আশ্রয় — যেখানে বিশ্ববিদ্যালয়ের শিক্ষার্থীরা গান, যন্ত্রসংগীত ও সুরের সাধনায় একত্রিত হয়।</p>
+          <p>২০০২ সালে প্রতিষ্ঠিত এই সংগীত ক্লাবটি বছরের পর বছর ধরে হাজারো শিক্ষার্থীর মনে সুরের বীজ বপন করে আসছে। শাস্ত্রীয় থেকে আধুনিক, রবীন্দ্রসংগীত থেকে ব্যান্ড — আমরা সব ধারার সংগীতকে সমান ভালোবাসি।</p>
+          <p>আমাদের ক্লাবে আসুন, আপনার সুরকে খুঁজে নিন, নতুন সঙ্গী পান এবং আমাদের সাথে সংগীতের এক অনন্য যাত্রায় শামিল হোন।</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card" id="stat-members">
+            <span class="stat-number">৩০০+</span>
+            <span class="stat-label">সক্রিয় সদস্য</span>
+          </div>
+          <div class="stat-card" id="stat-events">
+            <span class="stat-number">৮০+</span>
+            <span class="stat-label">সংগীত পরিবেশনা</span>
+          </div>
+          <div class="stat-card" id="stat-years">
+            <span class="stat-number">২২+</span>
+            <span class="stat-label">বছরের সাধনা</span>
+          </div>
+          <div class="stat-card" id="stat-awards">
+            <span class="stat-number">৩৫</span>
+            <span class="stat-label">পুরস্কার অর্জন</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== NEWS ====== -->
+  <section class="news section" id="news">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">সর্বশেষ</span>
+        <h2 class="section-title">সংবাদ ও আপডেট</h2>
+        <div class="section-divider">
+          <svg viewBox="0 0 80 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 6 Q20 0 40 6 Q60 12 80 6" stroke="#8B5E3C" stroke-width="1" fill="none"/>
+          </svg>
+        </div>
+      </div>
+      <div class="news-grid">
+        <article class="news-card news-card-featured" id="news-featured">
+          <div class="news-card-img">
+            <div class="news-img-placeholder news-img-1">
+              <div class="placeholder-botanical">
+                <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="60" cy="40" r="35" fill="none" stroke="#8B5E3C" stroke-width="0.8" stroke-dasharray="4 3"/>
+                  <path d="M60 70 C50 55 30 48 20 30" stroke="#8B5E3C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                  <path d="M60 70 C70 55 90 48 100 30" stroke="#8B5E3C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                  <ellipse cx="38" cy="42" rx="10" ry="16" fill="none" stroke="#8B5E3C" stroke-width="0.8" transform="rotate(-25 38 42)"/>
+                  <ellipse cx="82" cy="42" rx="10" ry="16" fill="none" stroke="#8B5E3C" stroke-width="0.8" transform="rotate(25 82 42)"/>
+                  <ellipse cx="60" cy="25" rx="8" ry="14" fill="none" stroke="#8B5E3C" stroke-width="0.8"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="news-card-body">
+            <div class="news-meta">
+              <span class="news-category">ঘোষণা</span>
+              <time class="news-date">২৫ জুলাই, ২০২৬</time>
+            </div>
+            <h3 class="news-title">সপ্তসুরের বার্ষিক সংগীত উৎসব ২০২৬-এর নিবন্ধন শুরু</h3>
+            <p class="news-excerpt">এই বছরের বার্ষিক সংগীত উৎসবে কণ্ঠসংগীত, যন্ত্রসংগীত, ব্যান্ড পারফরম্যান্স ও একক গান — চারটি বিভাগে অংশগ্রহণের সুযোগ রয়েছে। নিবন্ধন করুন এবং নিজের সুর তুলে ধরুন।</p>
+            <a href="#" class="news-read-more" id="news-featured-link">বিস্তারিত পড়ুন <span class="arrow">→</span></a>
+          </div>
+        </article>
+
+        <article class="news-card" id="news-card-2">
+          <div class="news-card-body">
+            <div class="news-meta">
+              <span class="news-category">সাফল্য</span>
+              <time class="news-date">১৮ জুলাই, ২০২৬</time>
+            </div>
+            <h3 class="news-title">জাতীয় আন্তঃবিশ্ববিদ্যালয় সংগীত প্রতিযোগিতায় সপ্তসুরের প্রথম স্থান</h3>
+            <p class="news-excerpt">ঢাকায় অনুষ্ঠিত জাতীয় আন্তঃবিশ্ববিদ্যালয় সংগীত প্রতিযোগিতায় আমাদের কণ্ঠশিল্পী দল গৌরবজনক প্রথম স্থান অর্জন করেছে।</p>
+            <a href="#" class="news-read-more" id="news-card-2-link">বিস্তারিত পড়ুন <span class="arrow">→</span></a>
+          </div>
+        </article>
+
+        <article class="news-card" id="news-card-3">
+          <div class="news-card-body">
+            <div class="news-meta">
+              <span class="news-category">রেকর্ডিং</span>
+              <time class="news-date">১০ জুলাই, ২০২৬</time>
+            </div>
+            <h3 class="news-title">সপ্তসুরের প্রথম মৌলিক অ্যালবাম 'প্রথম সুর' প্রকাশিত</h3>
+            <p class="news-excerpt">সদস্যদের নিজস্ব রচনা ও সুরারোপে তৈরি ১০টি মৌলিক গান নিয়ে 'প্রথম সুর' অ্যালবামটি এখন সব স্ট্রিমিং প্ল্যাটফর্মে পাওয়া যাচ্ছে।</p>
+            <a href="#" class="news-read-more" id="news-card-3-link">বিস্তারিত পড়ুন <span class="arrow">→</span></a>
+          </div>
+        </article>
+
+        <article class="news-card" id="news-card-4">
+          <div class="news-card-body">
+            <div class="news-meta">
+              <span class="news-category">কর্মশালা</span>
+              <time class="news-date">৫ জুলাই, ২০২৬</time>
+            </div>
+            <h3 class="news-title">গিটার ও তবলা প্রশিক্ষণ কর্মশালা সফলভাবে সম্পন্ন</h3>
+            <p class="news-excerpt">বিশিষ্ট সংগীতশিল্পী ওস্তাদ রফিকুল ইসলামের পরিচালনায় দিনব্যাপী যন্ত্রসংগীত কর্মশালাটি সফলভাবে সম্পন্ন হয়েছে।</p>
+            <a href="#" class="news-read-more" id="news-card-4-link">বিস্তারিত পড়ুন <span class="arrow">→</span></a>
+          </div>
+        </article>
+      </div>
+      <div class="section-cta">
+        <a href="#" class="btn btn-outline" id="all-news-btn">সব সংবাদ দেখুন</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== INITIATIVES ====== -->
+  <section class="initiatives section" id="initiatives">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">আমাদের কাজ</span>
+        <h2 class="section-title">সংগীত উদ্যোগসমূহ</h2>
+        <div class="section-divider">
+          <svg viewBox="0 0 80 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 6 Q20 0 40 6 Q60 12 80 6" stroke="#8B5E3C" stroke-width="1" fill="none"/>
+          </svg>
+        </div>
+      </div>
+      <div class="initiatives-grid">
+        <div class="initiative-card" id="initiative-1">
+          <div class="initiative-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 40 C8 20 16 12 24 8 C32 12 40 20 40 40" stroke="#8B5E3C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <ellipse cx="24" cy="24" rx="8" ry="12" fill="none" stroke="#8B5E3C" stroke-width="1"/>
+              <path d="M24 12 L24 36" stroke="#8B5E3C" stroke-width="0.8" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+          <h3 class="initiative-title">সাপ্তাহিক রিহার্সাল</h3>
+          <p class="initiative-desc">প্রতি সপ্তাহে নিয়মিত সংগীত অনুশীলন সেশন আয়োজিত হয়। কণ্ঠ, গিটার, তবলা, বেহালা — সব শিল্পীদের জন্য উন্মুক্ত।</p>
+        </div>
+
+        <div class="initiative-card" id="initiative-2">
+          <div class="initiative-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="18" r="8" fill="none" stroke="#8B5E3C" stroke-width="1.5"/>
+              <path d="M12 40 C12 32 17 28 24 28 C31 28 36 32 36 40" stroke="#8B5E3C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M8 38 C8 32 12 29 16 27" stroke="#8B5E3C" stroke-width="1" fill="none" stroke-linecap="round" stroke-dasharray="2 2"/>
+              <path d="M40 38 C40 32 36 29 32 27" stroke="#8B5E3C" stroke-width="1" fill="none" stroke-linecap="round" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+          <h3 class="initiative-title">গুরু-শিষ্য প্রোগ্রাম</h3>
+          <p class="initiative-desc">অভিজ্ঞ সংগীতশিল্পীরা নতুন সদস্যদের ব্যক্তিগতভাবে গাইড করেন। সুর, তাল, লয় শেখার এই যাত্রায় প্রতিটি পদক্ষেপে সহায়তা পাবেন।</p>
+        </div>
+
+        <div class="initiative-card" id="initiative-3">
+          <div class="initiative-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="14" width="32" height="22" rx="2" fill="none" stroke="#8B5E3C" stroke-width="1.5"/>
+              <path d="M16 22 L32 22 M16 28 L26 28" stroke="#8B5E3C" stroke-width="1" stroke-linecap="round"/>
+              <path d="M8 18 L24 8 L40 18" stroke="#8B5E3C" stroke-width="1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="initiative-title">মৌলিক সংগীত প্রকল্প</h3>
+          <p class="initiative-desc">প্রতি বছর সদস্যদের নিজস্ব রচনা ও সুরে তৈরি মৌলিক গানের অ্যালবাম প্রকাশিত হয়। সুরকার ও গীতিকারদের জন্য বিশেষ সুযোগ।</p>
+        </div>
+
+        <div class="initiative-card" id="initiative-4">
+          <div class="initiative-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 8 L28 18 L38 18 L30 24 L33 34 L24 28 L15 34 L18 24 L10 18 L20 18 Z" fill="none" stroke="#8B5E3C" stroke-width="1.5" stroke-linejoin="round"/>
+              <circle cx="24" cy="21" r="3" fill="none" stroke="#8B5E3C" stroke-width="0.8"/>
+            </svg>
+          </div>
+          <h3 class="initiative-title">সংগীত প্রতিযোগিতা</h3>
+          <p class="initiative-desc">নিয়মিত অনুশীলন ও প্রশিক্ষণ সেশনের মাধ্যমে সদস্যরা জাতীয় ও আন্তর্জাতিক সংগীত প্রতিযোগিতায় অংশ নেন।</p>
+        </div>
+
+        <div class="initiative-card" id="initiative-5">
+          <div class="initiative-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 36 L12 20 L24 12 L36 20 L36 36" stroke="#8B5E3C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="18" y="28" width="12" height="8" fill="none" stroke="#8B5E3C" stroke-width="1"/>
+              <path d="M24 12 L24 20 M18 24 L30 24" stroke="#8B5E3C" stroke-width="0.8" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+          <h3 class="initiative-title">সংগীত থেরাপি উদ্যোগ</h3>
+          <p class="initiative-desc">হাসপাতাল, বৃদ্ধাশ্রম ও সুবিধাবঞ্চিত শিশুদের কাছে সংগীত পৌঁছে দিতে আমরা নিয়মিত স্বেচ্ছামূলক পরিবেশনা দিয়ে থাকি।</p>
+        </div>
+
+        <div class="initiative-card" id="initiative-6">
+          <div class="initiative-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="24" r="16" fill="none" stroke="#8B5E3C" stroke-width="1.5"/>
+              <path d="M24 14 L24 24 L32 30" stroke="#8B5E3C" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 24 Q18 16 24 14 Q30 12 34 18" stroke="#8B5E3C" stroke-width="0.8" fill="none" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+          <h3 class="initiative-title">সুর সন্ধ্যা</h3>
+          <p class="initiative-desc">প্রতি মাসে আয়োজিত 'সুর সন্ধ্যা'য় সদস্যরা নিজেদের গান পরিবেশন করেন। রবীন্দ্রসংগীত, নজরুলগীতি, লোকগান, ব্যান্ড — সব ধারার সংগীত।</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== EVENTS ====== -->
+  <section class="events section" id="events">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">আসন্ন</span>
+        <h2 class="section-title">অনুষ্ঠানের তালিকা</h2>
+        <div class="section-divider">
+          <svg viewBox="0 0 80 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 6 Q20 0 40 6 Q60 12 80 6" stroke="#8B5E3C" stroke-width="1" fill="none"/>
+          </svg>
+        </div>
+      </div>
+      <div class="events-list">
+        <div class="event-item" id="event-1">
+          <div class="event-date-block">
+            <span class="event-day">০৫</span>
+            <span class="event-month">আগস্ট</span>
+          </div>
+          <div class="event-details">
+            <h3 class="event-title">বার্ষিক সংগীত উৎসব ২০২৬</h3>
+            <div class="event-meta">
+              <span class="event-time">🕙 সকাল ১০টা — রাত ১০টা</span>
+              <span class="event-location">📍 বিশ্ববিদ্যালয় মিলনায়তন</span>
+            </div>
+            <p class="event-desc">কণ্ঠসংগীত, যন্ত্রসংগীত, ব্যান্ড পারফরম্যান্স ও লোকসংগীতের এক মহামিলনমেলা। সকল শিক্ষার্থী ও সংগীতপ্রেমীদের স্বাগত।</p>
+          </div>
+          <div class="event-action">
+            <a href="#" class="btn btn-sm btn-primary" id="event-1-reg">নিবন্ধন করুন</a>
+          </div>
+        </div>
+
+        <div class="event-item" id="event-2">
+          <div class="event-date-block">
+            <span class="event-day">১৫</span>
+            <span class="event-month">আগস্ট</span>
+          </div>
+          <div class="event-details">
+            <h3 class="event-title">স্বাধীনতা দিবস বিশেষ সংগীত সন্ধ্যা</h3>
+            <div class="event-meta">
+              <span class="event-time">🕕 সন্ধ্যা ৬টা — রাত ৯টা</span>
+              <span class="event-location">📍 উন্মুক্ত মঞ্চ, ক্যাম্পাস</span>
+            </div>
+            <p class="event-desc">মুক্তিযুদ্ধের স্মৃতিতে দেশাত্মবোধক গান ও যন্ত্রসংগীতের বিশেষ অনুষ্ঠান। ফ্রি এন্ট্রি।</p>
+          </div>
+          <div class="event-action">
+            <a href="#" class="btn btn-sm btn-outline" id="event-2-reg">বিস্তারিত</a>
+          </div>
+        </div>
+
+        <div class="event-item" id="event-3">
+          <div class="event-date-block">
+            <span class="event-day">২২</span>
+            <span class="event-month">আগস্ট</span>
+          </div>
+          <div class="event-details">
+            <h3 class="event-title">আন্তঃবিশ্ববিদ্যালয় সংগীত প্রতিযোগিতা ২০২৬</h3>
+            <div class="event-meta">
+              <span class="event-time">🕙 সকাল ৯টা — সন্ধ্যা ৭টা</span>
+              <span class="event-location">📍 অডিটোরিয়াম, কলা ভবন</span>
+            </div>
+            <p class="event-desc">দেশের ১৫টি বিশ্ববিদ্যালয়ের প্রতিযোগীদের মধ্যে সংগীত প্রতিযোগিতা। আমাদের শিল্পীদের অনুপ্রেরণা দিন।</p>
+          </div>
+          <div class="event-action">
+            <a href="#" class="btn btn-sm btn-outline" id="event-3-reg">বিস্তারিত</a>
+          </div>
+        </div>
+
+        <div class="event-item" id="event-4">
+          <div class="event-date-block">
+            <span class="event-day">০১</span>
+            <span class="event-month">সেপ্টেম্বর</span>
+          </div>
+          <div class="event-details">
+            <h3 class="event-title">নতুন সদস্য বরণ ও অডিশন</h3>
+            <div class="event-meta">
+              <span class="event-time">🕓 বিকাল ৪টা — সন্ধ্যা ৭টা</span>
+              <span class="event-location">📍 মিউজিক রুম, ছাত্র সংসদ ভবন</span>
+            </div>
+            <p class="event-desc">এই সেমিস্টারের নতুন সদস্যদের বরণ অনুষ্ঠান ও অডিশন। যেকোনো বাদ্যযন্ত্র বা কণ্ঠ — সবাই আবেদন করতে পারবেন।</p>
+          </div>
+          <div class="event-action">
+            <a href="#" class="btn btn-sm btn-primary" id="event-4-reg">নিবন্ধন করুন</a>
+          </div>
+        </div>
+      </div>
+      <div class="section-cta">
+        <a href="#" class="btn btn-outline" id="all-events-btn">সব অনুষ্ঠান দেখুন</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== GALLERY STRIP ====== -->
+  <section class="gallery-strip" id="gallery" aria-label="ফটো গ্যালারি">
+    <div class="gallery-track">
+      <div class="gallery-item g-item-1"></div>
+      <div class="gallery-item g-item-2"></div>
+      <div class="gallery-item g-item-3"></div>
+      <div class="gallery-item g-item-4"></div>
+      <div class="gallery-item g-item-5"></div>
+      <div class="gallery-item g-item-6"></div>
+      <div class="gallery-item g-item-1"></div>
+      <div class="gallery-item g-item-2"></div>
+      <div class="gallery-item g-item-3"></div>
+      <div class="gallery-item g-item-4"></div>
+    </div>
+  </section>
+
+  <!-- ====== JOIN / CTA ====== -->
+  <section class="join section" id="contact">
+    <div class="join-bg-botanical" aria-hidden="true">
+      <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M200 280 C160 220 80 180 20 100" stroke="#8B5E3C" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.3"/>
+        <path d="M200 280 C240 220 320 180 380 100" stroke="#8B5E3C" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.3"/>
+        <ellipse cx="80" cy="160" rx="25" ry="40" fill="none" stroke="#8B5E3C" stroke-width="0.8" transform="rotate(-30 80 160)" opacity="0.3"/>
+        <ellipse cx="320" cy="160" rx="25" ry="40" fill="none" stroke="#8B5E3C" stroke-width="0.8" transform="rotate(30 320 160)" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="container">
+      <div class="join-content">
+        <span class="section-label">আমাদের সাথে যোগ দিন</span>
+        <h2 class="join-title">আপনার সুরের সময় এসেছে</h2>
+        <p class="join-desc">সপ্তসুরে যোগ দিন এবং হাজারো সংগীতপ্রেমী তরুণের সাথে আপনার সুরকে নতুন উচ্চতায় নিয়ে যান।</p>
+        <form class="join-form" id="join-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullname">পূর্ণ নাম</label>
+              <input type="text" id="fullname" name="fullname" placeholder="আপনার নাম লিখুন" required />
+            </div>
+            <div class="form-group">
+              <label for="email">ইমেইল ঠিকানা</label>
+              <input type="email" id="email" name="email" placeholder="আপনার ইমেইল লিখুন" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="department">বিভাগ</label>
+            <input type="text" id="department" name="department" placeholder="আপনার বিভাগের নাম" />
+          </div>
+          <div class="form-group">
+            <label for="interest">সংগীতের ধরন</label>
+            <select id="interest" name="interest">
+              <option value="">বেছে নিন</option>
+              <option value="vocal">কণ্ঠসংগীত</option>
+              <option value="guitar">গিটার</option>
+              <option value="tabla">তবলা / পার্কাশন</option>
+              <option value="violin">বেহালা / স্ট্রিংস</option>
+              <option value="keyboard">কীবোর্ড / পিয়ানো</option>
+              <option value="band">ব্যান্ড</option>
+              <option value="folk">লোকসংগীত</option>
+              <option value="composition">সুরারোপ ও গীতরচনা</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" id="join-submit-btn">আবেদন পাঠান</button>
+        </form>
+        <div class="join-success" id="join-success" aria-live="polite">
+          <div class="success-icon">♪</div>
+          <p>আপনার আবেদন পাঠানো হয়েছে। শীঘ্রই অডিশনের তারিখ জানানো হবে।</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="site-footer" id="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/images/saptasur-logo.svg" alt="সপ্তসুর" class="footer-logo" />
+          <p class="footer-tagline">সুরের আলোয় আলোকিত হোক প্রতিটি হৃদয়।</p>
+        </div>
+        <div class="footer-links-group">
+          <h4>দ্রুত লিঙ্ক</h4>
+          <ul>
+            <li><a href="#about">আমাদের সম্পর্কে</a></li>
+            <li><a href="#news">সংবাদ</a></li>
+            <li><a href="#initiatives">উদ্যোগ</a></li>
+            <li><a href="#events">অনুষ্ঠান</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>যোগাযোগ</h4>
+          <ul>
+            <li>📧 saptasur@university.edu.bd</li>
+            <li>📞 +880 1XXX-XXXXXX</li>
+            <li>📍 ছাত্র সংসদ ভবন, কক্ষ ২০৩</li>
+          </ul>
+        </div>
+        <div class="footer-social">
+          <h4>সোশ্যাল মিডিয়া</h4>
+          <div class="social-links">
+            <a href="#" class="social-link" id="footer-facebook" aria-label="ফেসবুক">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#" class="social-link" id="footer-instagram" aria-label="ইন্সটাগ্রাম">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </a>
+            <a href="#" class="social-link" id="footer-youtube" aria-label="ইউটিউব">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.97C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.97A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" stroke="currentColor" stroke-width="1.5"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© ২০২৬ সপ্তসুর। সর্বস্বত্ব সংরক্ষিত।</p>
+        <p class="footer-credit">সুরের সাধনায় একত্রিত 🎵</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
