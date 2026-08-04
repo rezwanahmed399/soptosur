@@ -107,82 +107,34 @@ function triggerGoogleSignIn() {
   errEl.textContent = '';
 
   const clientId = S.content?.google_client_id;
+  const isValidClientId = clientId &&
+    clientId.includes('.apps.googleusercontent.com') &&
+    !clientId.includes('vj7s9j5g6k3l2p1o4n8b7v6c5x4z3a2s');
 
-  // If Client ID is set and valid, try native Google OAuth popup
-  if (window.google?.accounts?.oauth2 && clientId && clientId.includes('.apps.googleusercontent.com') && !clientId.includes('vj7s9j5g6k3l2p1o4n8b7v6c5x4z3a2s')) {
+  if (!isValidClientId) {
+    // No Client ID configured — show setup instructions, BLOCK all access
+    errEl.innerHTML = `
+      <strong>Google Sign-In সেটআপ প্রয়োজন</strong><br>
+      Token Login দিয়ে অ্যাডমিন প্যানেলে ঢুকুন → <em>"অ্যাডমিন অ্যাক্সেস"</em> সেকশনে গিয়ে
+      <a href="https://console.cloud.google.com/apis/credentials" target="_blank" style="color:var(--accent)">Google Cloud Console</a>
+      থেকে OAuth Client ID যুক্ত করুন।`;
+    return;
+  }
+
+  // Real Google OAuth popup
+  if (window.google?.accounts?.oauth2) {
     requestGoogleOAuthToken(clientId);
     return;
   }
 
-  // Open Google Account Verification Modal
-  openGoogleAuthModal();
-}
-
-function openGoogleAuthModal() {
-  const modalHtml = `
-    <div class="modal-overlay open" id="g-auth-modal">
-      <div class="modal-card" style="max-width:400px">
-        <div class="modal-head">
-          <h3 style="display:flex;align-items:center;gap:8px;">
-            <svg style="width:20px;height:20px"><use href="#ic-google"/></svg> Google Account Authorization
-          </h3>
-          <button class="btn-icon" onclick="closeGoogleAuthModal()"><svg><use href="#ic-close"/></svg></button>
-        </div>
-        <div class="modal-body" style="padding:1rem 0;">
-          <p class="color-hint" style="margin-bottom:1rem;font-family:var(--bengali)">
-            অ্যাডমিন প্যানেলে অনুমোদিত আপনার Gmail এড্রেসটি দিয়ে সাইন-ইন নিশ্চিত করুন:
-          </p>
-          <div class="field">
-            <label>Google Gmail Address</label>
-            <input type="email" id="g-email-input" placeholder="example@gmail.com" style="width:100%" />
-          </div>
-          <div id="g-modal-err" class="login-error" style="margin-top:0.5rem"></div>
-        </div>
-        <div class="modal-foot">
-          <button class="btn-secondary" onclick="closeGoogleAuthModal()">বাতিল</button>
-          <button class="btn-primary" onclick="submitGoogleAuthModal()">Authorize &amp; Login</button>
-        </div>
-      </div>
-    </div>`;
-
-  const existing = $('g-auth-modal');
-  if (existing) existing.remove();
-  document.body.insertAdjacentHTML('beforeend', modalHtml);
-
-  $('g-email-input').focus();
-  $('g-email-input').addEventListener('keypress', e => {
-    if (e.key === 'Enter') submitGoogleAuthModal();
-  });
-}
-
-function closeGoogleAuthModal() {
-  const modal = $('g-auth-modal');
-  if (modal) modal.remove();
-}
-
-function submitGoogleAuthModal() {
-  const emailInput = $('g-email-input');
-  const errEl = $('g-modal-err');
-  if (!emailInput) return;
-
-  const email = emailInput.value.trim();
-  if (!email || !email.includes('@')) {
-    errEl.textContent = 'সঠিক Gmail ঠিকানা লিখুন';
-    return;
-  }
-
-  closeGoogleAuthModal();
-  verifyGoogleUser({
-    email: email,
-    name: email.split('@')[0]
-  });
+  errEl.textContent = 'Google SDK লোড হয়নি। পেজ রিফ্রেশ করে আবার চেষ্টা করুন।';
 }
 
 function requestGoogleOAuthToken(clientId) {
   if (!window.google?.accounts?.oauth2) return;
   const client = google.accounts.oauth2.initTokenClient({
     client_id: clientId,
-    scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
+    scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid',
     callback: async (tokenResponse) => {
       if (tokenResponse.access_token) {
         try {
@@ -190,9 +142,13 @@ function requestGoogleOAuthToken(clientId) {
             headers: { Authorization: `Bearer ${tokenResponse.access_token}` }
           });
           const profile = await res.json();
+          if (!profile.email_verified) {
+            $('login-error').textContent = 'Google অ্যাকাউন্টটি ভেরিফাইড নয়।';
+            return;
+          }
           verifyGoogleUser(profile);
         } catch(e) {
-          $('login-error').textContent = 'Google অ্যাকাউন্ট যাচাই করতে ব্যর্থ হয়েছে।';
+          $('login-error').textContent = 'Google অ্যাকাউন্ট যাচাই করতে ব্যর্থ হয়েছে।';
         }
       }
     },
