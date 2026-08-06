@@ -602,9 +602,10 @@ function buildNewsList() {
         <span class="item-badge">${esc(it.category)}</span>
         ${it.featured ? '<span class="item-badge" style="background:rgba(82,201,122,0.1);color:#52C97A">Featured</span>' : ''}
         <div class="item-title">${esc(it.title)}</div>
-        <div class="item-sub">${esc(it.date)}</div>
+        <div class="item-sub">${esc(it.date)} ${it.author ? '• ' + esc(it.author) : ''}</div>
       </div>
       <div class="item-actions">
+        <button class="btn-icon edit" onclick="previewNewsArticle(${i})" title="আর্টিকেল প্রিভিউ"><svg><use href="#ic-preview"/></svg></button>
         <button class="btn-icon edit" onclick="editNews(${i})"><svg><use href="#ic-edit"/></svg></button>
         <button class="btn-icon del" onclick="delItem('news',${i})"><svg><use href="#ic-trash"/></svg></button>
       </div>
@@ -767,16 +768,40 @@ function editNews(i) {
 }
 function newsFields(it) {
   return fields([
-    {id:'f-cat',   label:'Category',          val:it.category||'',  type:'text', ph:'ঘোষণা / সাফল্য'},
-    {id:'f-date',  label:'তারিখ',             val:it.date||'',      type:'text', ph:'২৫ জুলাই, ২০২৬'},
-    {id:'f-title', label:'শিরোনাম',           val:it.title||'',     type:'text'},
-    {id:'f-exc',   label:'সংক্ষিপ্ত বর্ণনা', val:it.excerpt||'',   type:'textarea'},
-    {id:'f-link',  label:'Link (URL)',         val:it.link||'#',     type:'text'},
-    {id:'f-feat',  label:'Featured?',          val:it.featured||false, type:'select', opts:[['false','না'],['true','হ্যাঁ']]}
+    {id:'f-cat',    label:'Category',                 val:it.category||'',  type:'text', ph:'ঘোষণা / সাফল্য'},
+    {id:'f-date',   label:'তারিখ',                    val:it.date||'',      type:'text', ph:'২৫ জুলাই, ২০২৬'},
+    {id:'f-author', label:'লেখক / উৎস',             val:it.author||'',    type:'text', ph:'সপ্তসুর বার্তা ডেস্ক'},
+    {id:'f-title',  label:'শিরোনাম',                  val:it.title||'',     type:'text'},
+    {id:'f-exc',    label:'সংক্ষিপ্ত বিবরণ (Excerpt)', val:it.excerpt||'',   type:'textarea'},
+    {id:'f-content',label:'পূর্ণাঙ্গ আর্টিকেল কন্টেন্ট (Full Content)', val:it.content||'', type:'textarea'},
+    {id:'f-img',    label:'ছবি URL (Image Path)',     val:it.image||'',     type:'text', ph:'assets/images/gallery-1.jpg'},
+    {id:'f-feat',   label:'Featured? (হোমপেজে ফোকাস)', val:it.featured||false, type:'select', opts:[['false','না'],['true','হ্যাঁ']]}
   ]);
 }
 function pickNews() {
-  return { category:$('f-cat').value, date:$('f-date').value, title:$('f-title').value, excerpt:$('f-exc').value, link:$('f-link').value, featured:$('f-feat').value==='true' };
+  return {
+    category:$('f-cat').value,
+    date:$('f-date').value,
+    author:$('f-author').value,
+    title:$('f-title').value,
+    excerpt:$('f-exc').value,
+    content:$('f-content').value,
+    image:$('f-img').value,
+    featured:$('f-feat').value==='true'
+  };
+}
+function previewNewsArticle(i) {
+  const item = S.content.news[i];
+  if (!item) return;
+  const contentParas = (item.content || item.excerpt || '').split('\n').filter(p => p.trim()).map(p => `<p style="margin-bottom:0.8rem;line-height:1.6;color:var(--text2);">${esc(p)}</p>`).join('');
+  const previewHtml = `
+    <div style="font-family:var(--font);padding:0.5rem 0;">
+      <div style="font-size:0.85rem;color:var(--accent);margin-bottom:0.5rem;font-weight:600;">${esc(item.category)} • ${esc(item.date)} ${item.author ? '• ' + esc(item.author) : ''}</div>
+      <h2 style="font-size:1.3rem;margin-bottom:1rem;color:var(--text);">${esc(item.title)}</h2>
+      ${item.image ? `<img src="../${item.image}" style="width:100%;max-height:220px;object-fit:cover;border-radius:8px;margin-bottom:1rem;" onerror="this.style.display='none'"/>` : ''}
+      <div style="background:var(--bg2);padding:1rem;border-radius:8px;border:1px solid var(--border);">${contentParas}</div>
+    </div>`;
+  openModal('সংবাদ আর্টিকেল প্রিভিউ', previewHtml, null);
 }
 
 /* ══════════════════════════════════════════

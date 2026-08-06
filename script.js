@@ -200,4 +200,200 @@
   }
   animateTrail();
 
+  /* ============================================
+     CLIENT-SIDE NEWS ROUTER & PAGES
+     ============================================ */
+  function handleRoute() {
+    const hash = window.location.hash || '#';
+    const mainSections = document.querySelectorAll('section:not(#all-news-section):not(#single-article-section)');
+    const allNewsSec = document.getElementById('all-news-section');
+    const singleArticleSec = document.getElementById('single-article-section');
+
+    if (hash.startsWith('#news/') && hash.length > 6) {
+      const articleId = hash.replace('#news/', '');
+      showSingleArticle(articleId);
+    } else if (hash === '#news-all') {
+      showAllNews();
+    } else {
+      // Main homepage view
+      if (allNewsSec) allNewsSec.style.display = 'none';
+      if (singleArticleSec) singleArticleSec.style.display = 'none';
+      mainSections.forEach(sec => sec.style.display = '');
+
+      // Smooth scroll if anchor on main page
+      if (hash.length > 1) {
+        const target = document.querySelector(hash);
+        if (target) {
+          setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 50);
+        }
+      }
+    }
+  }
+
+  function getNewsData() {
+    return window.siteContent?.news || [];
+  }
+
+  function showSingleArticle(articleId) {
+    const mainSections = document.querySelectorAll('section:not(#all-news-section):not(#single-article-section)');
+    const allNewsSec = document.getElementById('all-news-section');
+    const singleArticleSec = document.getElementById('single-article-section');
+    const articleContainer = document.getElementById('article-full-content');
+
+    if (!singleArticleSec || !articleContainer) return;
+
+    const newsList = getNewsData();
+    const article = newsList.find(n => n.id === articleId || n.id === `news-${articleId}`);
+
+    if (allNewsSec) allNewsSec.style.display = 'none';
+    mainSections.forEach(sec => sec.style.display = 'none');
+    singleArticleSec.style.display = 'block';
+
+    if (!article) {
+      articleContainer.innerHTML = `
+        <div class="article-not-found">
+          <h2>সংবাদটি পাওয়া যায়নি</h2>
+          <p>আপনি যে তথ্যটি খুঁজছেন তা মুছে ফেলা হয়ে থাকতে পারে।</p>
+          <a href="#news-all" class="btn btn-outline">সকল সংবাদ দেখুন</a>
+        </div>`;
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    // Format paragraphs from article content
+    const rawContent = article.content || article.excerpt || '';
+    const paragraphs = rawContent.split('\n').filter(p => p.trim().length > 0);
+    const bodyHtml = paragraphs.map(p => `<p class="article-para">${escapeHtml(p)}</p>`).join('');
+
+    const imgHtml = article.image ? `
+      <div class="article-hero-img-wrap">
+        <img src="${article.image}" alt="${escapeHtml(article.title)}" class="article-hero-img" />
+      </div>` : `
+      <div class="article-hero-placeholder">
+        <div class="placeholder-botanical">
+          <svg viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="40" r="35" fill="none" stroke="#8B5E3C" stroke-width="0.8" stroke-dasharray="4 3"/>
+            <path d="M60 70 C50 55 30 48 20 30" stroke="#8B5E3C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M60 70 C70 55 90 48 100 30" stroke="#8B5E3C" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>`;
+
+    articleContainer.innerHTML = `
+      <div class="article-header-meta">
+        <span class="news-category">${escapeHtml(article.category || 'সংবাদ')}</span>
+        <time class="news-date">🗓️ ${escapeHtml(article.date || '')}</time>
+        ${article.author ? `<span class="article-author">✍️ ${escapeHtml(article.author)}</span>` : ''}
+      </div>
+      <h1 class="article-main-title">${escapeHtml(article.title)}</h1>
+      <div class="article-divider"></div>
+      ${imgHtml}
+      <div class="article-body-content">
+        ${bodyHtml}
+      </div>
+      <div class="article-footer-actions">
+        <button class="btn btn-sm btn-outline" id="article-share-btn">🔗 লিংক কপি করুন</button>
+        <a href="#news-all" class="btn btn-sm btn-primary">সকল সংবাদ দেখুন →</a>
+      </div>`;
+
+    const shareBtn = document.getElementById('article-share-btn');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(window.location.href);
+        shareBtn.textContent = '✓ কপি হয়েছে!';
+        setTimeout(() => shareBtn.textContent = '🔗 লিংক কপি করুন', 2500);
+      });
+    }
+
+    window.scrollTo(0, 0);
+  }
+
+  function showAllNews() {
+    const mainSections = document.querySelectorAll('section:not(#all-news-section):not(#single-article-section)');
+    const allNewsSec = document.getElementById('all-news-section');
+    const singleArticleSec = document.getElementById('single-article-section');
+    const grid = document.getElementById('all-news-grid');
+
+    if (!allNewsSec || !grid) return;
+
+    if (singleArticleSec) singleArticleSec.style.display = 'none';
+    mainSections.forEach(sec => sec.style.display = 'none');
+    allNewsSec.style.display = 'block';
+
+    renderAllNewsGrid();
+    window.scrollTo(0, 0);
+  }
+
+  function renderAllNewsGrid(filterCat = 'all', searchQuery = '') {
+    const grid = document.getElementById('all-news-grid');
+    if (!grid) return;
+
+    let items = getNewsData();
+
+    if (filterCat !== 'all') {
+      items = items.filter(n => n.category === filterCat);
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      items = items.filter(n =>
+        (n.title && n.title.toLowerCase().includes(q)) ||
+        (n.excerpt && n.excerpt.toLowerCase().includes(q)) ||
+        (n.content && n.content.toLowerCase().includes(q))
+      );
+    }
+
+    if (!items.length) {
+      grid.innerHTML = `
+        <div class="no-news-found">
+          <p>কোনো সংবাদ পাওয়া যায়নি।</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = items.map(item => `
+      <article class="news-card">
+        <div class="news-card-body">
+          <div class="news-meta">
+            <span class="news-category">${escapeHtml(item.category)}</span>
+            <time class="news-date">${escapeHtml(item.date)}</time>
+          </div>
+          <h3 class="news-title"><a href="#news/${item.id}">${escapeHtml(item.title)}</a></h3>
+          <p class="news-excerpt">${escapeHtml(item.excerpt)}</p>
+          <a href="#news/${item.id}" class="news-read-more">বিস্তারিত পড়ুন <span class="arrow">→</span></a>
+        </div>
+      </article>`).join('');
+  }
+
+  // Filter & Search events for All News page
+  let activeCat = 'all';
+  const searchInput = document.getElementById('all-news-search');
+  const catChips = document.getElementById('news-cat-chips');
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      renderAllNewsGrid(activeCat, e.target.value);
+    });
+  }
+
+  if (catChips) {
+    catChips.addEventListener('click', (e) => {
+      const btn = e.target.closest('.chip');
+      if (!btn) return;
+      catChips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      activeCat = btn.dataset.cat || 'all';
+      renderAllNewsGrid(activeCat, searchInput ? searchInput.value : '');
+    });
+  }
+
+  function escapeHtml(str) {
+    return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  window.addEventListener('hashchange', handleRoute);
+  document.addEventListener('contentLoaded', handleRoute);
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(handleRoute, 100);
+  });
+
 })();
