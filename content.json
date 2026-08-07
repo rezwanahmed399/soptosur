@@ -99,7 +99,7 @@
   "news": [
     {
       "id": "news-annual-fest-2026",
-      "featured": true,
+      "featured": false,
       "category": "ঘোষণা",
       "date": "২৫ জুলাই, ২০২৬",
       "author": "সপ্তসুর বার্তা ডেস্ক",
